@@ -7,7 +7,7 @@ function index() {
       <div className="flex h-full ">
         <Sidebar />
 
-        <div className="flex-1 h-full w-auto bg-white p-3 rounded-lg">
+        <div className="flex-1 h-full w-auto backdrop-blur-md bg-white/30 p-3 rounded-lg">
           <Outlet />
         </div>
 
