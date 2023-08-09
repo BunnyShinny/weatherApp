@@ -1,16 +1,19 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Sidebar from "./SideBar"
+import Sidebar from "./SideBar";
+import Helmet from 'react-helmet';
+
 function index() {
   return (
-    <div className=" bg-black h-screen w-screen p-5">
-      <div className="flex h-full ">
-        <Sidebar />
+    <div>
+      <div className=" bg-black flex flex-col ">
+        <div className="flex flex-row h-screen p-5">
+          <Sidebar />
 
-        <div className="flex-1 h-full w-auto backdrop-blur-md bg-white/30 p-3 rounded-lg">
-          <Outlet />
+          <div className="flex-1 w-full overflow-hidden overflow-y-auto">
+            <Outlet />
+          </div>
         </div>
-
       </div>
     </div>
   );

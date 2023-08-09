@@ -3,7 +3,7 @@ import Layout from "./layout/Index";
 import Home from "./components/Home";
 import "./index.css";
 import Rain from "./components/Rain";
-
+import './css/blurBackground.css'
 function App() {
   return (
     <BrowserRouter>

@@ -1,5 +1,4 @@
 import React from "react";
-import { HiHome } from "react-icons/hi";
 import { Link, useLocation } from "react-router-dom";
 
 export default function NavLink({ to, name, icon }) {
@@ -10,14 +9,13 @@ export default function NavLink({ to, name, icon }) {
   if (splitLocation.length > 2) {
     activeLink = "/" + splitLocation[1];
   }
-  console.log(activeLink);
   return (
-    <Link className="pr-2 my-2 flex" to={to}>
+    <Link className="pr-3 my-5 flex" to={to}>
       <div
         className={`flex ${
           activeLink === to
             ? "bg-gradient-to-r from-gray-400 text-xl"
-            : "hover:bg-gradient-to-r hover:from-gray-400 text-xl"
+            : "hover:bg-gradient-to-r hover:from-gray-400 "
         }`}
       >
         <span
@@ -25,7 +23,7 @@ export default function NavLink({ to, name, icon }) {
             activeLink === to ? "bg-white" : "hover:bg-white"
           }`}
         />
-        <div className="py-2 px-3 text-white ">{icon}</div>
+        <div className="py-2 px-3 text-white text-3xl">{icon}</div>
       </div>
     </Link>
   );
