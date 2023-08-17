@@ -143,7 +143,7 @@ export default function Home() {
         </div>
         <div className="relative w-full h-full col-span-4 overflow-hidden "></div>
       </div>
-      <div className="relative h-[20rem] h-auto rounded-lg col-span-4 overflow-hidden">
+      <div className="relative h-[21rem] h-auto rounded-lg col-span-4 overflow-hidden">
         <BackgroundBlur>
           <Slider sliderId={2} data={data?.forecast.forecastday} perslide={5}>
             {data?.forecast.forecastday?.map((hourly, index) => {
