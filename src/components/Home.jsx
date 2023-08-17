@@ -2,64 +2,123 @@ import React, { useEffect, useState } from "react";
 import HighlightCard from "../shared/home/HighlightCard";
 import BackgroundBlur from "../shared/BackgroundBlur";
 import UserLocationWeatherCard from "../shared/home/UserLocationWeatherCard";
-export default function Home() {
-  const [storageData, setStorageData] = useState();
+import Slider from "../shared/Slider";
+import ForecastCard from "../shared/home/ForecastCard";
+import DaysForecastCard from "../shared/home/DaysForecastCard";
 
-  const fetchUserData = async () => {
-    fetch(
-      `http://api.weatherapi.com/v1/current.json?key=c20ba7a4d8d04c3ca4f80417231008&q=Yangon&aqi=yes`
-    )
+export default function Home() {
+  const [data, setData] = useState();
+  const [forecastDays, setForecastDays] = useState(7);
+
+  const forecastDateChangeHandler = (value) => {
+    setForecastDays(value);
+  };
+  const fetchUserData = async (link, setData) => {
+    fetch(link)
       .then((response) => {
         return response.json();
       })
       .then((data) => {
-        setStorageData(data);
+        setData(data);
       });
   };
 
   useEffect(() => {
-    fetchUserData();
-  }, []);
-
-  console.log(storageData);
+    fetchUserData(
+      `http://api.weatherapi.com/v1/forecast.json?key=c20ba7a4d8d04c3ca4f80417231008&q=Yangon&days=${forecastDays}&aqi=no&alerts=no`,
+      setData
+    );
+  }, [forecastDays]);
 
   return (
     <div className="flex flex-col">
-      <div className="grid grid-cols-5 gap-4 h-96 text-white mb-1">
+      <div className="grid grid-cols-5 gap-4 h-[22rem] text-white mb-1">
         <div className="relative w-full h-full colspan-2 rounded-xl col-span-1 overflow-hidden">
           <BackgroundBlur>
-            <UserLocationWeatherCard data={storageData} />
+            <UserLocationWeatherCard data={data} />
           </BackgroundBlur>
         </div>
-        <div className="relative w-full h-auto rounded-xl col-span-4 overflow-hidden">
+        <div className="relative w-full h-auto rounded-lg col-span-4 overflow-hidden">
           <BackgroundBlur>
             <div className="flex flex-col  h-full overflow-auto">
               <div className="">Today's Highlight</div>
-              <div className="grid grid-cols-3 gap-3 h-full">
-                <HighlightCard
-                  heading="Humidity"
-                  measurement={{
-                    value: storageData?.current.humidity,
-                    type: "%",
-                    description: "The dew point is 27°C right now.",
-                  }}
-                />
-                <HighlightCard
-                  heading="Visability"
-                  measurement={{
-                    value: storageData?.current.vis_km,
-                    type: "km",
-                    description: "Good Visbility (5 - 10 km).",
-                  }}
-                />
-                <HighlightCard
-                  heading="Pressure"
-                  measurement={{
-                    value: storageData?.current.pressure_mb,
-                    type: "mb",
-                    description: "It is normalized to standard pressure.",
-                  }}
-                />
+              <div className="flex flex-col h-full">
+                <div className="flex-none grid grid-cols-6 gap-3 mt-2">
+                  <HighlightCard
+                    heading="Humidity"
+                    measurement={{
+                      value: data?.current.humidity,
+                      type: "%",
+                    }}
+                  />
+                  <HighlightCard
+                    heading="Visability"
+                    measurement={{
+                      value: data?.current.vis_km,
+                      type: "km",
+                    }}
+                  />
+                  <HighlightCard
+                    heading="Pressure"
+                    measurement={{
+                      value: data?.current.pressure_mb,
+                      type: "mb",
+                    }}
+                  />
+                  <HighlightCard
+                    heading={`Wind`}
+                    measurement={{
+                      value: data?.current.wind_kph,
+                      type: "kph",
+                    }}
+                  />
+                  <HighlightCard
+                    heading="Wind Direction"
+                    measurement={{
+                      value: data?.current.wind_dir,
+                      type: "",
+                    }}
+                  />
+                  <HighlightCard
+                    heading="UV"
+                    measurement={{
+                      value: data?.current.uv,
+                      type: "",
+                    }}
+                  />
+                </div>
+                <div className=" flex-1 rounded-lg  pt-3 px-3">
+                  <div className="flex flex-col h-full">
+                    <div className="mb-0">Today's Weather Forecast</div>
+                    <div className="flex-1 ">
+                      <Slider
+                        sliderId={1}
+                        data={data?.forecast.forecastday[0].hour}
+                        perslide={5}
+                      >
+                        {data?.forecast.forecastday[0].hour?.map(
+                          (hourly, index) => {
+                            return (
+                              <div
+                                key={index}
+                                id={"card 1"}
+                                className={`w-[212px]`}
+                              >
+                                <ForecastCard
+                                  data={hourly}
+                                  time={hourly.time}
+                                  icon={hourly.condition.icon}
+                                  temp={hourly.temp_c}
+                                  rain_chance={hourly.chance_of_rain}
+                                />
+                              </div>
+                            );
+                          }
+                        )}
+                      </Slider>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </BackgroundBlur>
@@ -69,15 +128,36 @@ export default function Home() {
         <div className="relative w-full h-full col-span-1 overflow-hidden">
           <div className="flex justify-between">
             <div className="rounded-xl text-white px-3 my-1 ">
-              7 Day forecast
+              {forecastDays} Days forecast
             </div>
-              <select id="countries" className="rounded-xl bg-gray-700 m-1 px-1">
-                <option value="7">7 Days</option>
-                <option value="14">14 Days</option>
-              </select>
-            </div>
+            <select
+              id="forecast date"
+              value={forecastDays}
+              className="rounded-xl bg-gray-700 m-1 px-1"
+              onChange={(e) => forecastDateChangeHandler(e.target.value)}
+            >
+              <option value={7}>7 Days</option>
+              <option value={10}>10 Days</option>
+            </select>
           </div>
+        </div>
         <div className="relative w-full h-full col-span-4 overflow-hidden "></div>
+      </div>
+      <div className="relative h-[20rem] h-auto rounded-lg col-span-4 overflow-hidden">
+        <BackgroundBlur>
+          <Slider sliderId={2} data={data?.forecast.forecastday} perslide={5}>
+            {data?.forecast.forecastday?.map((hourly, index) => {
+              return (
+                <div key={index} id={"card 2"} className={`w-[20rem]`}>
+                  <DaysForecastCard
+                    data={hourly}
+                    temperature={[hourly.day.maxtemp_c, hourly.day.mintemp_c]}
+                  />
+                </div>
+              );
+            })}
+          </Slider>
+        </BackgroundBlur>
       </div>
     </div>
   );

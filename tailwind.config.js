@@ -8,6 +8,7 @@ module.exports = {
         // 'background': "url('../public/images/img/weather.jpg')",
       },
 
+
     },
   },
   plugins: [],

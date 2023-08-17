@@ -2,7 +2,6 @@ import React from "react";
 import { HiHome } from "react-icons/hi";
 import NavLink from "../shared/NavLink";
 import { BsFillCloudRainHeavyFill } from "react-icons/bs";
-import BackgroundBlur from "../shared/BackgroundBlur"
 export default function sideBar() {
   return (
     <div className="relative flex flex-col overflow-auto justify-between backdrop-blur-md bg-blue-400/30 rounded-lg mr-4">

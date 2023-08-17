@@ -1,7 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./SideBar";
-import Helmet from 'react-helmet';
 
 function index() {
   return (

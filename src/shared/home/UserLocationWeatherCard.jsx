@@ -1,6 +1,6 @@
 import React from "react";
 import { HiSearch } from "react-icons/hi";
-import { WiDayCloudy, WiDayRain,WiCloud } from "react-icons/wi";
+import {  WiDayRain,WiCloud } from "react-icons/wi";
 import { CiLocationOn, CiCalendar } from "react-icons/ci";
 import moment from "moment/moment";
 
@@ -33,12 +33,12 @@ export default function UserLocationWeatherCard({ data }) {
       <h1 className="right-0 text-end text-white font-semibold drop-shadow-lg bg-black rounded-full p-3 hover:bg-gray-700 hover:cursor-pointer">
         <HiSearch />
       </h1>
-      <div className="relative w-full h-full p-3 pt-8">
+      <div className="relative w-full h-full p-3 pt-2">
         {data ? (
           <>
-            <div className="mb-3 flex flex-col">
+            <div className="mb-1 flex flex-col">
               <div className="w-20 h-15">
-                <img className="w-25 h-20" src={data.current.condition.icon} />
+                <img alt={data.current.condition.icon} className="w-25 h-20" src={data.current.condition.icon} />
               </div>
               <div className="flex">
                 <div className="text-5xl">{data.current.temp_c}</div>
