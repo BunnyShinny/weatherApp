@@ -6,7 +6,7 @@ export default function ForecastCard({ data,time, icon, temp, rain_chance }) {
   const ForecastTime = moment(time).format("LT");
   return (
     <div className="p-4 h-full w-auto  ">
-      <div className="flex flex-col h-full backdrop-blur-lg bg-black/60 rounded-lg p-3">
+      <div className="flex flex-col h-full backdrop-blur-lg bg-black/10 rounded-lg p-3">
         <div>{ForecastTime}</div>
         <div className="flex-1 grid grid-cols-2 content-center">
           <img alt={icon} src={icon} />
