@@ -6,7 +6,7 @@ function index() {
   return (
     <div>
       <div className=" bg-black flex flex-col ">
-        <div className="flex flex-row h-screen p-5">
+        <div className="flex flex-row h-screen p-5 ">
           <Sidebar />
 
           <div className="flex-1 w-full overflow-hidden overflow-y-auto">

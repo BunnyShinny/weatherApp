@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import HighlightCard from "../shared/home/HighlightCard";
-import BackgroundBlur from "../shared/BackgroundBlur";
+import BackgroundBlur from "../shared/backgroundBlur";
 import UserLocationWeatherCard from "../shared/home/UserLocationWeatherCard";
 import Slider from "../shared/Slider";
 import ForecastCard from "../shared/home/ForecastCard";
@@ -143,7 +143,7 @@ export default function Home() {
         </div>
         <div className="relative w-full h-full col-span-4 overflow-hidden "></div>
       </div>
-      <div className="relative h-[21rem] h-auto rounded-lg col-span-4 overflow-hidden">
+      <div className="relative h-[21rem] rounded-lg col-span-4 overflow-hidden">
         <BackgroundBlur>
           <Slider sliderId={2} data={data?.forecast.forecastday} perslide={5}>
             {data?.forecast.forecastday?.map((hourly, index) => {
