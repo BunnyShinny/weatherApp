@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import HighlightCard from "../shared/home/HighlightCard";
-import BackgroundBlur from "../shared/backgroundBlur";
+import BackgroundBlur from "../shared/BackgroundBlur";
 import UserLocationWeatherCard from "../shared/home/UserLocationWeatherCard";
 import Slider from "../shared/Slider";
 import ForecastCard from "../shared/home/ForecastCard";
@@ -8,19 +8,24 @@ import DaysForecastCard from "../shared/home/DaysForecastCard";
 
 export default function Home() {
   const [data, setData] = useState();
+  const [loading, setLoading] = useState(false);
   const [forecastDays, setForecastDays] = useState(7);
 
   const forecastDateChangeHandler = (value) => {
     setForecastDays(value);
   };
   const fetchUserData = async (link, setData) => {
-    fetch(link)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setData(data);
-      });
+    const data = await (await fetch(link)).json();
+
+    setData(data);
+    // fetch(link)
+    //   .then((response) => {
+    //     return response.json();
+    //   })
+    //   .then((data) => {
+
+    //     setData(data);
+    //   });
   };
 
   useEffect(() => {
@@ -29,12 +34,11 @@ export default function Home() {
       setData
     );
   }, [forecastDays]);
-
-  return (
+  return  (
     <div className="flex flex-col">
-      <div className="grid grid-cols-5 gap-4 h-[22rem] text-white mb-1">
+      <div className="grid xl:grid-cols-5 lg:grid-cols-5 md:grid-cols-5 sm:grid-cols-5 grid-cols-5 gap-4 h-[22rem] text-white mb-1">
         <div className="relative w-full h-full colspan-2 rounded-xl col-span-1 overflow-hidden">
-          <BackgroundBlur>
+          <BackgroundBlur weather={data?.current.condition.text} bgColor={'bg-gradient-to-br from-gray-300 to-sky-800'}>
             <UserLocationWeatherCard data={data} />
           </BackgroundBlur>
         </div>
@@ -124,27 +128,25 @@ export default function Home() {
           </BackgroundBlur>
         </div>
       </div>
-      <div className="grid grid-cols-5 gap-4 h-10 text-white mb-2 bg pt-2">
-        <div className="relative w-full h-full col-span-1 overflow-hidden">
-          <div className="flex justify-between">
-            <div className="rounded-xl text-white px-3 my-1 ">
-              {forecastDays} Days forecast
-            </div>
-            <select
-              id="forecast date"
-              value={forecastDays}
-              className="rounded-xl bg-gray-700 m-1 px-1"
-              onChange={(e) => forecastDateChangeHandler(e.target.value)}
-            >
-              <option value={7}>7 Days</option>
-              <option value={10}>10 Days</option>
-            </select>
+      <div className="grid xl:grid-cols-5 lg:grid-cols-1 md:grid-cols-1 sm:grid-cols-1 grid-cols-1  gap-4 h-10 text-white mb-2 bg pt-2 h-full">
+        <div className="flex justify-between">
+          <div className="rounded-xl text-white px-3 my-1 ">
+            {forecastDays} Days forecast
           </div>
+          <select
+            id="forecast date"
+            value={forecastDays}
+            className="rounded-xl bg-gradient-to-tr from-sky-800 text-black m-1 px-1"
+            onChange={(e) => forecastDateChangeHandler(e.target.value)}
+          >
+            <option value={7}>7 Days</option>
+            <option value={10}>10 Days</option>
+          </select>
         </div>
         <div className="relative w-full h-full col-span-4 overflow-hidden "></div>
       </div>
       <div className="relative h-[21rem] rounded-lg col-span-4 overflow-hidden">
-        <BackgroundBlur>
+        {/* <BackgroundBlur bgColor={'bg-gradient-to-tl from-white to-sky-800'}> */}
           <Slider sliderId={2} data={data?.forecast.forecastday} perslide={5}>
             {data?.forecast.forecastday?.map((hourly, index) => {
               return (
@@ -157,7 +159,7 @@ export default function Home() {
               );
             })}
           </Slider>
-        </BackgroundBlur>
+        {/* </BackgroundBlur> */}
       </div>
     </div>
   );

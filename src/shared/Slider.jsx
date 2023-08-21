@@ -23,7 +23,7 @@ export default function Slider({ data, sliderId, perslide = 6, children }) {
       }
     }
   }
-  const prevSlide = () => {
+  const nextSlide = () => {
     if (
       +slider.style.marginLeft.slice(0, -2) !==
       -cardWidth * (data?.length - elementToShow)
@@ -32,7 +32,7 @@ export default function Slider({ data, sliderId, perslide = 6, children }) {
         +slider.style.marginLeft.slice(0, -2) - cardWidth + "px";
     }
   };
-  const nextSlide = () => {
+  const  prevSlide= () => {
     if (+slider.style.marginLeft.slice(0, -2) !== 0) {
       slider.style.marginLeft =
         +slider.style.marginLeft.slice(0, -2) + cardWidth + "px";

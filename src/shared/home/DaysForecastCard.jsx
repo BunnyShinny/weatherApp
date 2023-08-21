@@ -4,11 +4,10 @@ import DaysForecastMiniCard from "./DaysForecastMiniCard";
 
 export default function DaysForecastCard({ temperature, data }) {
     const dayData = data.day;
-    console.log(dayData);
   const forecastDate = moment(data.date).format("ll");
   return (
     <div className="p-2 h-full w-auto">
-      <div className="flex flex-col h-full backdrop-blur-lg bg-black/10 rounded-lg p-3">
+      <div className="flex flex-col h-full backdrop-blur-lg bg-white/10 rounded-lg p-3">
         <div className="text-xl text-white font-semibold">{forecastDate}</div>
         <div className="flex-1 flex flex-col pt-5">
           <div className="flex flex-row h-[5rem]">

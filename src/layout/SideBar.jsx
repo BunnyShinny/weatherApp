@@ -4,7 +4,7 @@ import NavLink from "../shared/NavLink";
 import { BsFillCloudRainHeavyFill } from "react-icons/bs";
 export default function sideBar() {
   return (
-    <div className="xl:block lg:block md:hidden sm:hidden hidden relative flex flex-col overflow-auto justify-between backdrop-blur-md bg-blue-400/30 rounded-lg mr-4">
+    <div className=" xl:block lg:block md:hidden sm:hidden hidden relative flex flex-col overflow-auto justify-between backdrop-blur-md bg-sky-400/30 rounded-lg mr-4">
       <div>
         <div className="p-2">
           <div className="grid place-content-center text-white">ICON</div>
