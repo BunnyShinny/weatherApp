@@ -8,7 +8,6 @@ import DaysForecastCard from "../shared/home/DaysForecastCard";
 
 export default function Home() {
   const [data, setData] = useState();
-  const [loading, setLoading] = useState(false);
   const [forecastDays, setForecastDays] = useState(7);
 
   const forecastDateChangeHandler = (value) => {
@@ -18,14 +17,7 @@ export default function Home() {
     const data = await (await fetch(link)).json();
 
     setData(data);
-    // fetch(link)
-    //   .then((response) => {
-    //     return response.json();
-    //   })
-    //   .then((data) => {
-
-    //     setData(data);
-    //   });
+    
   };
 
   useEffect(() => {
@@ -34,16 +26,28 @@ export default function Home() {
       setData
     );
   }, [forecastDays]);
+  console.log(data?.current.condition.text)
+  const weather = data?.current.condition.text;
+  let CurrentWeatherCardColor = '';
+  switch (weather) {
+    case 'Partly cloudy':
+      CurrentWeatherCardColor = 'bg-gradient-to-tr from-yellow-400 to-gray-300';
+      break;
+  
+    default:
+      CurrentWeatherCardColor = 'bg-gradient-to-tr from-sky-400 to-gray-300'
+      break;
+  }
   return  (
     <div className="flex flex-col">
-      <div className="grid xl:grid-cols-5 lg:grid-cols-5 md:grid-cols-5 sm:grid-cols-5 grid-cols-5 gap-4 h-[22rem] text-white mb-1">
-        <div className="relative w-full h-full colspan-2 rounded-xl col-span-1 overflow-hidden">
-          <BackgroundBlur weather={data?.current.condition.text} bgColor={'bg-gradient-to-br from-gray-300 to-sky-800'}>
-            <UserLocationWeatherCard data={data} />
+      <div className="grid xl:grid-cols-5 lg:grid-cols-5 md:grid-cols-5 sm:grid-cols-5 grid-cols-5 gap-4  text-gray-300 mb-1">
+        <div className="relative w-full h-full colspan-2 rounded-xl col-span-1 text-white overflow-hidden">
+          <BackgroundBlur weather={data?.current.condition.text} bgColor={CurrentWeatherCardColor}>
+            <UserLocationWeatherCard data={data}/>
           </BackgroundBlur>
         </div>
         <div className="relative w-full h-auto rounded-lg col-span-4 overflow-hidden">
-          <BackgroundBlur>
+          {/* <BackgroundBlur height="h-[22rem]"> */}
             <div className="flex flex-col  h-full overflow-auto">
               <div className="">Today's Highlight</div>
               <div className="flex flex-col h-full">
@@ -125,18 +129,18 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </BackgroundBlur>
+          {/* </BackgroundBlur> */}
         </div>
       </div>
-      <div className="grid xl:grid-cols-5 lg:grid-cols-1 md:grid-cols-1 sm:grid-cols-1 grid-cols-1  gap-4 h-10 text-white mb-2 bg pt-2 h-full">
+      <div className="grid xl:grid-cols-5 lg:grid-cols-1 md:grid-cols-1 sm:grid-cols-1 grid-cols-1  gap-4 h-10 text-gray-300 mb-2 bg pt-2 h-full">
         <div className="flex justify-between">
-          <div className="rounded-xl text-white px-3 my-1 ">
+          <div className="rounded-xl text-gray-300 px-3 my-1 ">
             {forecastDays} Days forecast
           </div>
           <select
             id="forecast date"
             value={forecastDays}
-            className="rounded-xl bg-gradient-to-tr from-sky-800 text-black m-1 px-1"
+            className="rounded-xl bg-gray-400 text-white m-1 p-1"
             onChange={(e) => forecastDateChangeHandler(e.target.value)}
           >
             <option value={7}>7 Days</option>
@@ -145,7 +149,7 @@ export default function Home() {
         </div>
         <div className="relative w-full h-full col-span-4 overflow-hidden "></div>
       </div>
-      <div className="relative h-[21rem] rounded-lg col-span-4 overflow-hidden">
+      <div className="relative h-auto rounded-lg col-span-4 overflow-hidden">
         {/* <BackgroundBlur bgColor={'bg-gradient-to-tl from-white to-sky-800'}> */}
           <Slider sliderId={2} data={data?.forecast.forecastday} perslide={5}>
             {data?.forecast.forecastday?.map((hourly, index) => {

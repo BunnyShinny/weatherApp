@@ -8,8 +8,8 @@ export default function Slider({ data, sliderId, perslide = 6, children }) {
   let cards = document.getElementById(`card ${sliderId}`);
   let elementToShow = perslide;
 
-  let sliderContainerWidth = sliderContainer?.clientWidth;
-
+  let sliderContainerWidth = sliderContainer?.clientWidth < 1000 ? 1479 :sliderContainer?.clientWidth;
+  console.log(sliderContainer?.clientWidth);
   let cardWidth = sliderContainerWidth / elementToShow;
   if (slider) {
     slider.style.width = data?.length * cardWidth + "px";
@@ -52,10 +52,10 @@ export default function Slider({ data, sliderId, perslide = 6, children }) {
       </div>
       {/* {slider > sliderContainerWidth && (
         <div className="hidden group-hover:block"> */}
-          <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-0 text-2xl rounded-full bg-black/20 text-white cursor-pointer p-2">
+          <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-0 text-2xl rounded-full bg-black/20 text-gray-300 cursor-pointer p-2">
             <BsChevronCompactLeft onClick={prevSlide} />
           </div>
-          <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-0 text-2xl rounded-full bg-black/20 text-white cursor-pointer p-2">
+          <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-0 text-2xl rounded-full bg-black/20 text-gray-300 cursor-pointer p-2">
             <BsChevronCompactRight onClick={nextSlide} />
           </div>
         {/* </div>

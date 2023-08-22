@@ -12,7 +12,7 @@ export default function ForecastCard({ data,time, icon, temp, rain_chance }) {
           <img alt={icon} src={icon} />
           <div className="flex flex-col justify-center">
             <div className="flex justify-center text-xl font-semibold">{`${temp} °C`}</div>
-            <div className="flex flex-row justify-center text-[#148DE6]">
+            <div className="flex flex-row justify-center items-center text-gray-300 text-sm">
               <div className="text-3xl">
                 <WiRaindrops />
               </div>
