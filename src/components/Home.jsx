@@ -16,7 +16,7 @@ export default function Home() {
   const [forecastDays, setForecastDays] = useState(7);
   const [cardWidth, setCardWidth] = useState({
     "card 1": "w-[253px]",
-    "card 2": "w-[20rem]",
+    "card 2": "w-[21rem]",
   });
 
   const forecastDateChangeHandler = (value) => {
@@ -57,6 +57,7 @@ export default function Home() {
       CurrentWeatherCardColor = "bg-gradient-to-tr from-sky-400 to-gray-300";
       break;
   }
+
   return (
     <div className="flex flex-col">
       <div className="grid xl:grid-cols-5 lg:grid-cols-5 grid-cols-1 xl:gap-4 lg:gap-4 gap-0 text-gray-300 ">
@@ -121,14 +122,13 @@ export default function Home() {
                 <div className="flex flex-col h-full">
                   <div className="mb-0">Today's Weather Forecast</div>
                   <div className="flex-1 ">
-                    <Slider
-                      sliderId={1}
-                      data={data?.forecast.forecastday[0].hour}
-                      perslide={5}
-                      cardWidthData={cardWidth}
-                      setCardWidth={setCardWidth}
-                    >
-                      {data ? (
+                    {data ? (
+                      <Slider
+                        sliderId={1}
+                        data={data?.forecast.forecastday[0].hour}
+                        cardWidthData={cardWidth}
+                        setCardWidth={setCardWidth}
+                      >
                         <>
                           {data?.forecast.forecastday[0].hour?.map(
                             (hourly, index) => {
@@ -136,7 +136,7 @@ export default function Home() {
                                 <div
                                   key={index}
                                   id={"card 1"}
-                                  className={cardWidth['card 1']}
+                                  className={cardWidth["card 1"]}
                                 >
                                   <ForecastCard
                                     data={hourly}
@@ -150,10 +150,10 @@ export default function Home() {
                             }
                           )}
                         </>
-                      ) : (
-                        <Loader />
-                      )}
-                    </Slider>
+                      </Slider>
+                    ) : (
+                      <Loader />
+                    )}
                   </div>
                 </div>
               </div>
@@ -181,21 +181,20 @@ export default function Home() {
       </div>
       <div className="relative h-auto rounded-lg col-span-4 overflow-hidden">
         <div className="h-auto">
-          <Slider
-            sliderId={2}
-            data={data?.forecast.forecastday}
-            perslide={5}
-            cardWidthData={cardWidth}
-            setCardWidth={setCardWidth}
-          >
-            {data ? (
+          {data ? (
+            <Slider
+              sliderId={2}
+              data={data?.forecast.forecastday}
+              cardWidthData={cardWidth}
+              setCardWidth={setCardWidth}
+            >
               <>
                 {data?.forecast.forecastday?.map((hourly, index) => {
                   return (
                     <div
                       key={index}
                       id={"card 2"}
-                      className={cardWidth['card 2']}
+                      className={cardWidth["card 2"]}
                     >
                       <DaysForecastCard
                         data={hourly}
@@ -208,10 +207,12 @@ export default function Home() {
                   );
                 })}
               </>
-            ) : (
+            </Slider>
+          ) : (
+            <div className={"h-[20rem]"}>
               <Loader />
-            )}
-          </Slider>
+            </div>
+          )}
         </div>
       </div>
     </div>

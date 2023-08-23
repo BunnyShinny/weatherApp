@@ -4,7 +4,6 @@ import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 export default function Slider({
   data,
   sliderId,
-  perslide = 6,
   cardWidthData,
   setCardWidth,
   children,
@@ -12,25 +11,14 @@ export default function Slider({
   let slider = document.getElementById(`slider ${sliderId}`);
   let sliderContainer = document.getElementById(`sliderContainer ${sliderId}`);
   let cards = document.getElementById(`card ${sliderId}`);
-  let elementToShow = 5;
-
+  let elementToShow = window.innerWidth > 600 ? 5 : 1;
+  
   let sliderContainerWidth = sliderContainer?.clientWidth;
   let cardWidth = sliderContainerWidth / elementToShow;
 
+
   if (slider) {
     slider.style.width = data?.length * cardWidth + "px";
-  }
-  if (data) {
-    for (let index = 0; index < data?.length; index++) {
-      const element = data[index];
-      if (cards) {
-        // cards.style.width = cardWidth + "px";
-        element.width = cardWidth + "px";
-        cardWidthData[`card ${sliderId}`] = `w-[${cardWidth}px]` ;
-
-        setCardWidth(cardWidthData);
-      }
-    }
   }
 
   const nextSlide = () => {
@@ -49,9 +37,23 @@ export default function Slider({
     }
   };
   useEffect(() => {
-   
-  }, [perslide, sliderContainerWidth]);
-        console.log(cardWidthData);
+    cardWidth = sliderContainerWidth / elementToShow;
+    if (slider) {
+      slider.style.width = data?.length * cardWidth + "px";
+    }
+    for (let index = 0; index < data?.length; index++) {
+      const element = data[index];
+      if (cards) {
+        // cards.style.width = cardWidth + "px";
+        // element.width = cardWidth + "px";
+        cardWidthData[`card ${sliderId}`] = `w-[${cardWidth}px]`;
+
+        setCardWidth(cardWidthData);
+      }
+    }
+  }, [sliderContainer?.clientWidth]);
+
+  console.log();
   return (
     <div
       id={`sliderContainer ${sliderId}`}
