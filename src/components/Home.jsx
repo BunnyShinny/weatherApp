@@ -61,7 +61,7 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       <div className="grid xl:grid-cols-5 lg:grid-cols-5 grid-cols-1 xl:gap-4 lg:gap-4 gap-0 text-gray-300 ">
-        <div className="relative w-full h-full colspan-2 rounded-xl col-span-1 text-white overflow-hidden">
+        <div className="relative w-full h-full colspan-2 rounded-xl col-span-1 text-white overflow-hidden xl:mb-0 lg:mb-0 mb-3">
           <BackgroundBlur
             weather={data?.current.condition.text}
             bgColor={CurrentWeatherCardColor}
