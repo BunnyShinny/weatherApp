@@ -1,16 +1,22 @@
+import { useEffect } from "react";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 
-export default function Slider({ data, sliderId, perslide = 6, children }) {
-  
-
+export default function Slider({
+  data,
+  sliderId,
+  perslide = 6,
+  cardWidthData,
+  setCardWidth,
+  children,
+}) {
   let slider = document.getElementById(`slider ${sliderId}`);
   let sliderContainer = document.getElementById(`sliderContainer ${sliderId}`);
   let cards = document.getElementById(`card ${sliderId}`);
-  let elementToShow = perslide;
+  let elementToShow = 5;
 
-  let sliderContainerWidth = sliderContainer?.clientWidth < 1000 ? 1479 :sliderContainer?.clientWidth;
-  console.log(sliderContainer?.clientWidth);
+  let sliderContainerWidth = sliderContainer?.clientWidth;
   let cardWidth = sliderContainerWidth / elementToShow;
+
   if (slider) {
     slider.style.width = data?.length * cardWidth + "px";
   }
@@ -20,9 +26,13 @@ export default function Slider({ data, sliderId, perslide = 6, children }) {
       if (cards) {
         // cards.style.width = cardWidth + "px";
         element.width = cardWidth + "px";
+        cardWidthData[`card ${sliderId}`] = `w-[${cardWidth}px]` ;
+
+        setCardWidth(cardWidthData);
       }
     }
   }
+
   const nextSlide = () => {
     if (
       +slider.style.marginLeft.slice(0, -2) !==
@@ -32,33 +42,36 @@ export default function Slider({ data, sliderId, perslide = 6, children }) {
         +slider.style.marginLeft.slice(0, -2) - cardWidth + "px";
     }
   };
-  const  prevSlide= () => {
+  const prevSlide = () => {
     if (+slider.style.marginLeft.slice(0, -2) !== 0) {
       slider.style.marginLeft =
         +slider.style.marginLeft.slice(0, -2) + cardWidth + "px";
     }
   };
-  
+  useEffect(() => {
+   
+  }, [perslide, sliderContainerWidth]);
+        console.log(cardWidthData);
   return (
     <div
       id={`sliderContainer ${sliderId}`}
-      className="w-full h-full m-auto pt-3 px-0 relative group overflow-hidden"
+      className="border-l-2 border-r-2 border-gray-500 w-full h-full m-auto pt-3 px-0 relative group overflow-hidden"
     >
       <div
         id={`slider ${sliderId}`}
-        className={`flex-none flex h-full px-5 no-scrollbar overflow-x-auto transition-margin duration-700`}
+        className={`flex-none flex h-full px-0 no-scrollbar overflow-x-auto transition-margin duration-700`}
       >
         {children}
       </div>
       {/* {slider > sliderContainerWidth && (
         <div className="hidden group-hover:block"> */}
-          <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-0 text-2xl rounded-full bg-black/20 text-gray-300 cursor-pointer p-2">
-            <BsChevronCompactLeft onClick={prevSlide} />
-          </div>
-          <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-0 text-2xl rounded-full bg-black/20 text-gray-300 cursor-pointer p-2">
-            <BsChevronCompactRight onClick={nextSlide} />
-          </div>
-        {/* </div>
+      <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-0 text-2xl rounded-full bg-black/20 text-gray-300 cursor-pointer p-2">
+        <BsChevronCompactLeft onClick={prevSlide} />
+      </div>
+      <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-0 text-2xl rounded-full bg-black/20 text-gray-300 cursor-pointer p-2">
+        <BsChevronCompactRight onClick={nextSlide} />
+      </div>
+      {/* </div>
       )} */}
     </div>
   );

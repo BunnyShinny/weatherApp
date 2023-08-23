@@ -7,7 +7,7 @@ export default function HighlightCard({
   icon,
 }) {
   return (
-    <div className="relative backdrop-blur-lg bg-white/10 rounded-lg mb-2 h-30 p-3">
+    <div className="relative backdrop-blur-lg bg-white/10 hover:bg-white/30 rounded-lg mb-2 h-30 p-3">
       <div className="flex justify-around">
         <div>{heading} </div>
         {icon && (

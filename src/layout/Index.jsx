@@ -6,11 +6,11 @@ function index() {
   return (
     <div>
       <div className=" bg-[#325981] flex flex-col ">
-        <div className="flex flex-row h-screen p-5 ">
+        <div className="flex flex-row h-screen  ">
           <div className="hidden">
             <Sidebar />
           </div>
-          <div className="flex-1 w-full overflow-hidden overflow-y-auto">
+          <div className="flex-1 w-full overflow-hidden overflow-y-auto p-5">
             <Outlet />
           </div>
         </div>
