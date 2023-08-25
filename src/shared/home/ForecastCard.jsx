@@ -5,7 +5,7 @@ import { WiRaindrops } from "react-icons/wi";
 export default function ForecastCard({ data,time, icon, temp, rain_chance }) {
   const ForecastTime = moment(time).format("LT");
   return (
-    <div className="p-4 h-full w-auto  ">
+    <div className="p-2 h-full w-auto">
       <div className="flex flex-col h-full backdrop-blur-lg bg-white/10 hover:bg-white/30 rounded-lg p-3">
         <div>{ForecastTime}</div>
         <div className="flex-1 grid grid-cols-2 content-center">

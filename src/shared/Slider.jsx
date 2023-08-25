@@ -29,6 +29,7 @@ export default function Slider({
       slider.style.marginLeft =
         +slider.style.marginLeft.slice(0, -2) - cardWidth + "px";
     }
+
   };
   const prevSlide = () => {
     if (+slider.style.marginLeft.slice(0, -2) !== 0) {
@@ -52,8 +53,6 @@ export default function Slider({
       }
     }
   }, [sliderContainer?.clientWidth]);
-
-  console.log();
   return (
     <div
       id={`sliderContainer ${sliderId}`}
@@ -65,16 +64,16 @@ export default function Slider({
       >
         {children}
       </div>
-      {/* {slider > sliderContainerWidth && (
-        <div className="hidden group-hover:block"> */}
+      {slider?.style.width.slice(0, -2)>sliderContainerWidth && (
+        <div className="hidden group-hover:block">
       <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-0 text-2xl rounded-full bg-black/20 text-gray-300 cursor-pointer p-2">
         <BsChevronCompactLeft onClick={prevSlide} />
       </div>
       <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-0 text-2xl rounded-full bg-black/20 text-gray-300 cursor-pointer p-2">
         <BsChevronCompactRight onClick={nextSlide} />
       </div>
-      {/* </div>
-      )} */}
+      </div>
+      )}
     </div>
   );
 }

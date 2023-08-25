@@ -4,7 +4,7 @@ import {  WiDayRain,WiCloud } from "react-icons/wi";
 import { CiLocationOn, CiCalendar } from "react-icons/ci";
 import moment from "moment/moment";
 
-export default function UserLocationWeatherCard({ data,searchColor,searchColorHover }) {
+export default function UserLocationWeatherCard({ data,searchColor,searchColorHover,bgColor }) {
     let currentTime='';
   const wealtherIcon = () => {
     if (data) {
@@ -29,8 +29,8 @@ export default function UserLocationWeatherCard({ data,searchColor,searchColorHo
 
     }
   return (
-    <div className="flex flex-col justify-center items-end h-full">
-      <h1 className={`right-0 text-end text-white font-semibold drop-shadow-lg bg-gray-400 rounded-full p-3 hover:bg-gray-500 hover:cursor-pointer`}>
+    <div className={`w-full  bg-cover bg-center ${bgColor} flex flex-col justify-center items-end h-full`}>
+      <h1 className={`mt-3 mr-3 text-end text-white font-semibold drop-shadow-lg bg-gray-400 rounded-full p-3 hover:bg-gray-500 hover:cursor-pointer`}>
         <HiSearch />
       </h1>
       <div className=" w-full h-full p-3 pt-2">

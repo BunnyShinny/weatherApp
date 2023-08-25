@@ -6,6 +6,7 @@ import Slider from "../shared/Slider";
 import ForecastCard from "../shared/home/ForecastCard";
 import DaysForecastCard from "../shared/home/DaysForecastCard";
 import Loader from "../shared/Loader";
+import AreaChart from "../shared/AreaChart";
 import {
   SliderCardWidthProvider,
   SliderCardWidthContext,
@@ -53,6 +54,18 @@ export default function Home() {
       CurrentWeatherCardColor = "bg-gradient-to-tr from-gray-400 to-gray-600";
       break;
 
+    case "Moderate rain":
+      CurrentWeatherCardColor = "bg-gradient-to-tr from-gray-500 to-gray-600";
+      break;
+
+    case "Heavy rain":
+      CurrentWeatherCardColor = "bg-gradient-to-tr from-gray-500 to-gray-600";
+      break;
+
+    case "Moderate or heavy rain with thunder":
+      CurrentWeatherCardColor = "bg-gradient-to-tr from-gray-600 to-gray-700";
+      break;
+
     default:
       CurrentWeatherCardColor = "bg-gradient-to-tr from-sky-400 to-gray-300";
       break;
@@ -66,7 +79,10 @@ export default function Home() {
             weather={data?.current.condition.text}
             bgColor={CurrentWeatherCardColor}
           >
-            <UserLocationWeatherCard data={data} />
+            <UserLocationWeatherCard
+              data={data}
+              bgColor={CurrentWeatherCardColor}
+            />
           </BackgroundBlur>
         </div>
         <div className="relative w-full h-auto rounded-lg col-span-4 overflow-hidden">
@@ -118,11 +134,11 @@ export default function Home() {
                   }}
                 />
               </div>
-              <div className=" flex-1 rounded-lg  pt-3 px-3">
-                <div className="flex flex-col h-full">
-                  <div className="mb-0">Today's Weather Forecast</div>
-                  <div className="flex-1 ">
-                    {data ? (
+              <div className=" flex-1 rounded-lg  pt-1 px-0">
+                <div className="flex h-[14rem] w-full">
+                  {/* <div className="mb-0">Today's Weather Forecast</div> */}
+                  <div className="h-auto w-full shadow-lg rounded-lg overflow-hidden grid grid-cols-2 gap-3">
+                    {/* {data ? (
                       <Slider
                         sliderId={1}
                         data={data?.forecast.forecastday[0].hour}
@@ -153,7 +169,9 @@ export default function Home() {
                       </Slider>
                     ) : (
                       <Loader />
-                    )}
+                    )} */}
+                    <AreaChart />
+                    <AreaChart />
                   </div>
                 </div>
               </div>

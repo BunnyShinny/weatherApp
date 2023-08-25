@@ -9,11 +9,12 @@ export default function backgroundBlur({
   
   return (
     <>
-      <div
-        id={"bgImg"}
+      {/* <div
         className={`  w-full ${height} bg-cover bg-center ${bgColor}`}
-      ></div>
-      <div className="absolute top-0 w-full h-full p-3">{children}</div>
+      ></div> */}
+      {/* <div className="absolute top-0 w-full h-full p-3"> */}
+        {children}
+        {/* </div> */}
     </>
   );
 }
