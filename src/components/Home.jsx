@@ -11,10 +11,12 @@ import {
   SliderCardWidthProvider,
   SliderCardWidthContext,
 } from "../context/SliderCardWidth";
+import moment from "moment";
 
 export default function Home() {
   const [data, setData] = useState();
   const [forecastDays, setForecastDays] = useState(7);
+
   const [cardWidth, setCardWidth] = useState({
     "card 1": "w-[253px]",
     "card 2": "w-[21rem]",
@@ -25,7 +27,6 @@ export default function Home() {
   };
   const fetchUserData = async (link, setData) => {
     const data = await (await fetch(link)).json();
-
     setData(data);
   };
 
@@ -35,6 +36,7 @@ export default function Home() {
       setData
     );
   }, [forecastDays]);
+  
   const weather = data?.current.condition.text;
   let CurrentWeatherCardColor = "";
   switch (weather) {
@@ -170,8 +172,14 @@ export default function Home() {
                     ) : (
                       <Loader />
                     )} */}
-                    <AreaChart />
-                    <AreaChart />
+                    {data ? (
+                      <>
+                        <AreaChart data={data?.forecast.forecastday[0].hour} label={"Temperature"} />
+                        <AreaChart data={data?.forecast.forecastday[0].hour} label={"Rain Chance"} />
+                      </>
+                    ) : (
+                      <Loader />
+                    )}
                   </div>
                 </div>
               </div>
@@ -180,7 +188,7 @@ export default function Home() {
           {/* </BackgroundBlur> */}
         </div>
       </div>
-      <div className="grid xl:grid-cols-5 lg:grid-cols-5 md:grid-cols-1 sm:grid-cols-1 grid-cols-1  gap-4 h-10 text-gray-300 mb-2 bg pt-2 h-full">
+      <div className="grid xl:grid-cols-5 lg:grid-cols-5 md:grid-cols-1 sm:grid-cols-1 grid-cols-1  gap-4 h-10 text-gray-300 mb-2 bg pt-0 h-full">
         <div className="flex justify-between">
           <div className="rounded-xl text-gray-300 px-3 my-1 ">
             {forecastDays} Days forecast

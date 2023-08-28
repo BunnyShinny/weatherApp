@@ -33,7 +33,7 @@ export default function UserLocationWeatherCard({ data,searchColor,searchColorHo
       <h1 className={`mt-3 mr-3 text-end text-white font-semibold drop-shadow-lg bg-gray-400 rounded-full p-3 hover:bg-gray-500 hover:cursor-pointer`}>
         <HiSearch />
       </h1>
-      <div className=" w-full h-full p-3 pt-2">
+      <div className=" w-full h-full p-3 pb-0 pt-2">
         {data ? (
           <>
             <div className="mb-1 flex flex-col">
