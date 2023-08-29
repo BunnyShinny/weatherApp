@@ -7,7 +7,7 @@ export default function DaysForecastCard({ temperature, data }) {
   const forecastDate = moment(data.date).format("ll");
   return (
     <div className="p-2 h-[20rem] w-auto">
-      <div className="flex flex-col h-full backdrop-blur-lg bg-white/10 hover:bg-white/30 hover:bg-white/30 rounded-lg p-3 pb-1">
+      <div className="flex flex-col h-full backdrop-blur-lg bg-white/10 hover:bg-white/30 hover:bg-white/30 rounded-lg p-3 ">
         <div className="text-xl text-gray-300 font-semibold">{forecastDate}</div>
         <div className="flex-1 flex flex-col pt-5">
           <div className="flex flex-row h-[5rem]">
@@ -27,12 +27,12 @@ export default function DaysForecastCard({ temperature, data }) {
             </div>
           </div>
           <div className="flex-1 grid grid-rows-2 h-full text-gray-300">
-            <div className="grid grid-cols-3">
+            <div className="grid grid-cols-3 gap-2">
               <DaysForecastMiniCard heading={'Wind'} value={`${dayData.maxwind_kph} kph`}/>
               <DaysForecastMiniCard heading={'Rain'} value={`${dayData.daily_chance_of_rain} %`}/>
               <DaysForecastMiniCard heading={'Humidity'} value={`${dayData.avghumidity} %`}/>
             </div>
-            <div className="grid grid-cols-2">
+            <div className="grid grid-cols-2 gap-2 mt-2">
               <DaysForecastMiniCard heading={'Version'} value={`${dayData.avgvis_km} km`}/>
               <DaysForecastMiniCard heading={'UV'} value={`${dayData.uv}`}/>
             </div>

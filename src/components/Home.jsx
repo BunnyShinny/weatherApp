@@ -3,20 +3,15 @@ import HighlightCard from "../shared/home/HighlightCard";
 import BackgroundBlur from "../shared/BackgroundBlur";
 import UserLocationWeatherCard from "../shared/home/UserLocationWeatherCard";
 import Slider from "../shared/Slider";
-import ForecastCard from "../shared/home/ForecastCard";
 import DaysForecastCard from "../shared/home/DaysForecastCard";
 import Loader from "../shared/Loader";
 import AreaChart from "../shared/AreaChart";
-import {
-  SliderCardWidthProvider,
-  SliderCardWidthContext,
-} from "../context/SliderCardWidth";
-import moment from "moment";
+import axios from "axios";
 
 export default function Home() {
   const [data, setData] = useState();
   const [forecastDays, setForecastDays] = useState(7);
-
+  const [error, setError] = useState();
   const [cardWidth, setCardWidth] = useState({
     "card 1": "w-[253px]",
     "card 2": "w-[21rem]",
@@ -26,17 +21,23 @@ export default function Home() {
     setForecastDays(value);
   };
   const fetchUserData = async (link, setData) => {
-    const data = await (await fetch(link)).json();
-    setData(data);
+    // const data = await (await fetch(link));
+    const data = axios
+      .get(link)
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        setError(error);
+      });
   };
-
   useEffect(() => {
     fetchUserData(
       `http://api.weatherapi.com/v1/forecast.json?key=c20ba7a4d8d04c3ca4f80417231008&q=Yangon&days=${forecastDays}&aqi=no&alerts=no`,
       setData
     );
   }, [forecastDays]);
-  
+
   const weather = data?.current.condition.text;
   let CurrentWeatherCardColor = "";
   switch (weather) {
@@ -72,8 +73,7 @@ export default function Home() {
       CurrentWeatherCardColor = "bg-gradient-to-tr from-sky-400 to-gray-300";
       break;
   }
-
-  return (
+  return !error ? (
     <div className="flex flex-col">
       <div className="grid xl:grid-cols-5 lg:grid-cols-5 grid-cols-1 xl:gap-4 lg:gap-4 gap-0 text-gray-300 ">
         <div className="relative w-full h-full colspan-2 rounded-xl col-span-1 text-white overflow-hidden xl:mb-0 lg:mb-0 mb-3">
@@ -139,8 +139,9 @@ export default function Home() {
               <div className=" flex-1 rounded-lg  pt-1 px-0">
                 <div className="flex h-[14rem] w-full">
                   {/* <div className="mb-0">Today's Weather Forecast</div> */}
-                  <div className="h-auto w-full shadow-lg rounded-lg overflow-hidden grid grid-cols-2 gap-3">
-                    {/* {data ? (
+                  {data ? (
+                    <div className="h-auto w-full shadow-lg rounded-lg overflow-hidden grid xl:grid-cols-2 lg:grid-cols-2 grid-cols-1 gap-3">
+                      {/* {data ? (
                       <Slider
                         sliderId={1}
                         data={data?.forecast.forecastday[0].hour}
@@ -172,15 +173,23 @@ export default function Home() {
                     ) : (
                       <Loader />
                     )} */}
-                    {data ? (
+
                       <>
-                        <AreaChart data={data?.forecast.forecastday[0].hour} label={"Temperature"} />
-                        <AreaChart data={data?.forecast.forecastday[0].hour} label={"Rain Chance"} />
+                        <AreaChart
+                          data={data?.forecast.forecastday[0].hour}
+                          label={"Temperature"}
+                          colorCode={"255,132,0"}
+                        />
+                        <AreaChart
+                          data={data?.forecast.forecastday[0].hour}
+                          label={"Rain Chance"}
+                          colorCode={"75, 192, 192"}
+                        />
                       </>
-                    ) : (
-                      <Loader />
-                    )}
-                  </div>
+                    </div>
+                  ) : (
+                    <Loader />
+                  )}
                 </div>
               </div>
             </div>
@@ -188,7 +197,7 @@ export default function Home() {
           {/* </BackgroundBlur> */}
         </div>
       </div>
-      <div className="grid xl:grid-cols-5 lg:grid-cols-5 md:grid-cols-1 sm:grid-cols-1 grid-cols-1  gap-4 h-10 text-gray-300 mb-2 bg pt-0 h-full">
+      <div className="grid xl:grid-cols-5 lg:grid-cols-5 md:grid-cols-1 sm:grid-cols-1 grid-cols-1  gap-4 h-10 text-gray-300 m-2 bg pt-0 h-full">
         <div className="flex justify-between">
           <div className="rounded-xl text-gray-300 px-3 my-1 ">
             {forecastDays} Days forecast
@@ -242,5 +251,5 @@ export default function Home() {
         </div>
       </div>
     </div>
-  );
+  ):(<Loader/>);
 }

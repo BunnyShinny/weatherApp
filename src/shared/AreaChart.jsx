@@ -2,12 +2,13 @@ import React, { useRef, useEffect, useState } from "react";
 import Chart from "chart.js/auto";
 import moment from "moment";
 
-const AreaChart = ({ data, label }) => {
+const AreaChart = ({ data, label, colorCode }) => {
   const chartRef = useRef(null);
   let xLabel = "";
   const chartInstanceRef = useRef(null);
   const [value, setValue] = useState([]);
   const [hour, setHour] = useState([]);
+
 
   useEffect(() => {
     if (data) {
@@ -25,8 +26,6 @@ const AreaChart = ({ data, label }) => {
           return hourly.chance_of_rain;
         }
       });
-      if (label) {
-      }
       setValue(updatedValue);
       setHour(updatedHour);
     }
@@ -36,7 +35,13 @@ const AreaChart = ({ data, label }) => {
     if (chartInstanceRef.current) {
       chartInstanceRef.current.destroy(); // Destroy previous instance if it exists
     }
-
+    console.log(label);
+    if (label === "Temperature") {
+      xLabel = "Temperature (°C)";
+    }
+    if (label === "Rain Chance") {
+      xLabel = "Rain Chance (%)";
+    }
     const ctx = chartRef.current.getContext("2d");
 
     const newChartInstance = new Chart(ctx, {
@@ -47,8 +52,8 @@ const AreaChart = ({ data, label }) => {
           {
             label: xLabel,
             data: value,
-            borderColor: "rgba(75, 192, 192, 1)",
-            backgroundColor: "rgba(75, 192, 192, 0.2)",
+            borderColor: `rgba(${colorCode}, 1)`,
+            backgroundColor: `rgba(${colorCode}, 0.2)`,
             fill: "start",
           },
         ],
@@ -56,17 +61,34 @@ const AreaChart = ({ data, label }) => {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        plugins: {
+          tooltip: {
+            mode: "index",
+            intersect: false,
+          },
+          legend: {
+            display: true,
+            position: "top",
+            labels: {
+              color: "rgb(209,213,219)",
+            },
+          },
+        },
         elements: {
           line: { tension: 0 },
         },
         scales: {
           x: {
             type: "category",
+            color: "rgb(209,213,219)",
+
             title: {
               display: false,
               text: "Hours",
-              color:'rgba(75, 192, 192, 1)'
-              
+              color: "rgb(209,213,219)",
+            },
+            ticks: {
+              color: "rgb(209,213,219)",
             },
             grid: {
               display: false,
@@ -76,8 +98,10 @@ const AreaChart = ({ data, label }) => {
             title: {
               display: true,
               text: xLabel,
-              color:'rgba(75, 192, 192, 1)'
-
+              color: "rgb(209,213,219)",
+            },
+            ticks: {
+              color: "rgb(209,213,219)",
             },
             grid: {
               display: false,
@@ -86,12 +110,11 @@ const AreaChart = ({ data, label }) => {
         },
       },
     });
-
     chartInstanceRef.current = newChartInstance; // Store the new instance
-  }, [data]);
+  }, [data,value,hour,xLabel]);
 
   return (
-    <div className="flex justify-center rounded-lg bg-white h-full w-full overflow-hidden border border-gray-300">
+    <div className="flex justify-center rounded-lg backdrop-blur-lg bg-white/10 h-full w-full overflow-hidden ">
       <div className="flex-1 h-full w-full">
         <canvas className="p-3 " ref={chartRef}></canvas>
       </div>

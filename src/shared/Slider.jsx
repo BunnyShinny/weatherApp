@@ -16,7 +16,6 @@ export default function Slider({
   let sliderContainerWidth = sliderContainer?.clientWidth;
   let cardWidth = sliderContainerWidth / elementToShow;
 
-
   if (slider) {
     slider.style.width = data?.length * cardWidth + "px";
   }
@@ -56,7 +55,7 @@ export default function Slider({
   return (
     <div
       id={`sliderContainer ${sliderId}`}
-      className="border-l-2 border-r-2 border-gray-500 w-full h-full m-auto pt-3 px-0 relative group overflow-hidden"
+      className="border-l-2 border-r-2 border-gray-500 w-full h-full m-auto pt-0 px-0 relative group overflow-hidden"
     >
       <div
         id={`slider ${sliderId}`}
