@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 
 export default function Slider({
@@ -8,35 +8,57 @@ export default function Slider({
   setCardWidth,
   children,
 }) {
+  const [sliderIncator, setSliderIncator] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
   let slider = document.getElementById(`slider ${sliderId}`);
   let sliderContainer = document.getElementById(`sliderContainer ${sliderId}`);
   let cards = document.getElementById(`card ${sliderId}`);
   let elementToShow = window.innerWidth > 600 ? 5 : 1;
-  
+
   let sliderContainerWidth = sliderContainer?.clientWidth;
   let cardWidth = sliderContainerWidth / elementToShow;
+  
 
   if (slider) {
     slider.style.width = data?.length * cardWidth + "px";
   }
 
   const nextSlide = () => {
-    if (
-      +slider.style.marginLeft.slice(0, -2) !==
-      -cardWidth * (data?.length - elementToShow)
-    ) {
-      slider.style.marginLeft =
-        +slider.style.marginLeft.slice(0, -2) - cardWidth + "px";
+    if (slider) {
+      if (
+        +slider.style.marginLeft.slice(0, -2) !==
+        -cardWidth * (data?.length - elementToShow)
+      ) {
+        slider.style.marginLeft =
+          +slider.style.marginLeft.slice(0, -2) - cardWidth + "px";
+      }
     }
-
   };
   const prevSlide = () => {
-    if (+slider.style.marginLeft.slice(0, -2) !== 0) {
-      slider.style.marginLeft =
-        +slider.style.marginLeft.slice(0, -2) + cardWidth + "px";
+    if (slider) {
+      if (+slider.style.marginLeft.slice(0, -2) !== 0) {
+        slider.style.marginLeft =
+          +slider.style.marginLeft.slice(0, -2) + cardWidth + "px";
+      }
     }
   };
+
   useEffect(() => {
+    const handleWindowResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleWindowResize);
+
+    return () => {
+      window.removeEventListener('resize', handleWindowResize);
+    };
+  });
+  useEffect(() => {
+    slider = document.getElementById(`slider ${sliderId}`);
+    sliderContainer = document.getElementById(`sliderContainer ${sliderId}`);
+    cards = document.getElementById(`card ${sliderId}`);
     cardWidth = sliderContainerWidth / elementToShow;
     if (slider) {
       slider.style.width = data?.length * cardWidth + "px";
@@ -51,7 +73,15 @@ export default function Slider({
         setCardWidth(cardWidthData);
       }
     }
-  }, [sliderContainer?.clientWidth]);
+  }, [windowWidth]);
+  
+  useEffect(() => {
+    if (slider?.style.width.slice(0, -2) < sliderContainerWidth) {
+      setSliderIncator(false);
+    }else if(slider?.style.width.slice(0, -2) > sliderContainerWidth){
+      setSliderIncator(true);
+    }
+  }, [windowWidth]);
   return (
     <div
       id={`sliderContainer ${sliderId}`}
@@ -63,15 +93,15 @@ export default function Slider({
       >
         {children}
       </div>
-      {slider?.style.width.slice(0, -2)>sliderContainerWidth && (
+      {sliderIncator && (
         <div className="hidden group-hover:block">
-      <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-0 text-2xl rounded-full bg-black/20 text-gray-300 cursor-pointer p-2">
-        <BsChevronCompactLeft onClick={prevSlide} />
-      </div>
-      <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-0 text-2xl rounded-full bg-black/20 text-gray-300 cursor-pointer p-2">
-        <BsChevronCompactRight onClick={nextSlide} />
-      </div>
-      </div>
+          <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-0 text-2xl rounded-full bg-black/20 text-gray-300 cursor-pointer p-2">
+            <BsChevronCompactLeft onClick={prevSlide} />
+          </div>
+          <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-0 text-2xl rounded-full bg-black/20 text-gray-300 cursor-pointer p-2">
+            <BsChevronCompactRight onClick={nextSlide} />
+          </div>
+        </div>
       )}
     </div>
   );

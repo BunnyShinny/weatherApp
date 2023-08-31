@@ -10,7 +10,7 @@ import axios from "axios";
 
 export default function Home() {
   const [data, setData] = useState();
-  const [forecastDays, setForecastDays] = useState(7);
+  const [forecastDays, setForecastDays] = useState(3);
   const [error, setError] = useState();
   const [cardWidth, setCardWidth] = useState({
     "card 1": "w-[253px]",
@@ -37,7 +37,6 @@ export default function Home() {
       setData
     );
   }, [forecastDays]);
-
   const weather = data?.current.condition.text;
   let CurrentWeatherCardColor = "";
   switch (weather) {
@@ -73,7 +72,7 @@ export default function Home() {
       CurrentWeatherCardColor = "bg-gradient-to-tr from-sky-400 to-gray-300";
       break;
   }
-  return !error ? (
+  return data ? (
     <div className="flex flex-col">
       <div className="grid xl:grid-cols-5 lg:grid-cols-5 grid-cols-1 xl:gap-4 lg:gap-4 gap-0 text-gray-300 ">
         <div className="relative w-full h-full colspan-2 rounded-xl col-span-1 text-white overflow-hidden xl:mb-0 lg:mb-0 mb-3">
@@ -90,7 +89,7 @@ export default function Home() {
         <div className="relative w-full h-auto rounded-lg col-span-4 overflow-hidden">
           {/* <BackgroundBlur height="h-[22rem]"> */}
           <div className="flex flex-col  h-full overflow-auto">
-            <div className="">Today's Highlight</div>
+            <div className="xl:mt:0 lg:mt-0 mt-3">Today's Highlight</div>
             <div className="flex flex-col h-full">
               <div className="flex-none grid xl:grid-cols-6 lg:grid-cols-6 grid-cols-2  gap-3 mt-2">
                 <HighlightCard
@@ -137,7 +136,7 @@ export default function Home() {
                 />
               </div>
               <div className=" flex-1 rounded-lg  pt-1 px-0">
-                <div className="flex h-[14rem] w-full">
+                <div className="relative flex xl:h-[14rem] lg:h-[14rem] h-[28rem] w-full ">
                   {/* <div className="mb-0">Today's Weather Forecast</div> */}
                   {data ? (
                     <div className="h-auto w-full shadow-lg rounded-lg overflow-hidden grid xl:grid-cols-2 lg:grid-cols-2 grid-cols-1 gap-3">
@@ -188,7 +187,9 @@ export default function Home() {
                       </>
                     </div>
                   ) : (
-                    <Loader />
+                    
+                      <Loader />
+                    
                   )}
                 </div>
               </div>
@@ -208,8 +209,8 @@ export default function Home() {
             className="rounded-xl bg-gray-400 text-white m-1 p-1"
             onChange={(e) => forecastDateChangeHandler(e.target.value)}
           >
-            <option value={7}>7 Days</option>
-            <option value={10}>10 Days</option>
+            <option value={3}>3 Days</option>
+            {/* <option value={10}>10 Days</option> */}
           </select>
         </div>
         <div className="relative w-full h-full col-span-4 overflow-hidden "></div>
@@ -251,5 +252,7 @@ export default function Home() {
         </div>
       </div>
     </div>
-  ):(<Loader/>);
+  ) : (
+    <Loader />
+  );
 }

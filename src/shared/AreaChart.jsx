@@ -9,7 +9,6 @@ const AreaChart = ({ data, label, colorCode }) => {
   const [value, setValue] = useState([]);
   const [hour, setHour] = useState([]);
 
-
   useEffect(() => {
     if (data) {
       const updatedHour = data.map((hourly) => {
@@ -35,7 +34,6 @@ const AreaChart = ({ data, label, colorCode }) => {
     if (chartInstanceRef.current) {
       chartInstanceRef.current.destroy(); // Destroy previous instance if it exists
     }
-    console.log(label);
     if (label === "Temperature") {
       xLabel = "Temperature (°C)";
     }
@@ -106,6 +104,8 @@ const AreaChart = ({ data, label, colorCode }) => {
             grid: {
               display: false,
             },
+            // suggestedMin: 0,
+            // suggestedMax: 0
           },
         },
       },

@@ -7,6 +7,10 @@ module.exports = {
       backgroundImage: {
         // 'background': "url('../public/images/img/weather.jpg')",
       },
+      colors:{
+        a:'#0F172A',
+        b:'#325981'
+      }
 
 
     },
