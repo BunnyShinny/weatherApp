@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./layout/Index";
-import Home from "./components/Home";
+import Home from "./Pages/Home";
 import "./index.css";
-import Rain from "./components/Rain";
+import Rain from "./Pages/Rain";
 import './css/blurBackground.css'
 function App() {
   return (

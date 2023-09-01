@@ -18,8 +18,6 @@ export default function UserLocationWeatherCard({ data,searchColor,searchColorHo
           return <WiDayRain />;
         case "Overcast":
           return <WiCloud />;
-
-        default:
           break;
       }
     }
@@ -29,7 +27,8 @@ export default function UserLocationWeatherCard({ data,searchColor,searchColorHo
 
     }
   return (
-    <div className={`w-full  bg-cover bg-center ${bgColor} flex flex-col justify-center items-end h-full`}>
+    <>
+    {/* <div className={`w-full  bg-cover bg-center ${bgColor} flex flex-col justify-center items-end h-full`}> */}
       <h1 className={`mt-3 mr-3 text-end text-white font-semibold drop-shadow-lg bg-gray-400 rounded-full p-3 hover:bg-gray-500 hover:cursor-pointer`}>
         <HiSearch />
       </h1>
@@ -98,6 +97,7 @@ export default function UserLocationWeatherCard({ data,searchColor,searchColorHo
         </div>
       </div>)}
       </div>
-    </div>
+    {/* </div> */}
+    </>
   );
 }

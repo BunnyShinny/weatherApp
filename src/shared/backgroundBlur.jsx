@@ -12,9 +12,9 @@ export default function backgroundBlur({
       {/* <div
         className={`  w-full ${height} bg-cover bg-center ${bgColor}`}
       ></div> */}
-      {/* <div className="absolute top-0 w-full h-full p-3"> */}
+      <div className={` w-full  bg-cover bg-center ${bgColor} flex flex-col justify-center items-end h-full`}>
         {children}
-        {/* </div> */}
+        </div>
     </>
   );
 }

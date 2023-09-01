@@ -16,7 +16,6 @@ export default function Home() {
     "card 1": "w-[253px]",
     "card 2": "w-[21rem]",
   });
-
   const forecastDateChangeHandler = (value) => {
     setForecastDays(value);
   };
@@ -33,7 +32,7 @@ export default function Home() {
   };
   useEffect(() => {
     fetchUserData(
-      `http://api.weatherapi.com/v1/forecast.json?key=c20ba7a4d8d04c3ca4f80417231008&q=Yangon&days=${forecastDays}&aqi=no&alerts=no`,
+      `http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=Yangon&days=${forecastDays}`,
       setData
     );
   }, [forecastDays]);
@@ -45,7 +44,7 @@ export default function Home() {
       break;
 
     case "Overcast":
-      CurrentWeatherCardColor = "bg-gradient-to-tr from-gray-400 to-gray-300";
+      CurrentWeatherCardColor = "bg-gradient-to-tr from-gray-300 to-gray-700";
       break;
 
     case "Light rain":
