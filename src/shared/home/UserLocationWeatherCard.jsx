@@ -32,14 +32,14 @@ export default function UserLocationWeatherCard({ data,searchColor,searchColorHo
       <h1 className={`mt-3 mr-3 text-end text-white font-semibold drop-shadow-lg bg-gray-400 rounded-full p-3 hover:bg-gray-500 hover:cursor-pointer`}>
         <HiSearch />
       </h1>
-      <div className=" w-full h-full p-3 pb-0 pt-2">
+      <div className=" w-full h-full p-3 pb-3 pt-2">
         {data ? (
-          <>
+          <div className="backdrop-blur-lg bg-white/10 rounded-lg p-2">
             <div className="mb-1 flex flex-col">
-              <div className="w-20 h-15">
+              <div className="w-24 h-15 rounded-lg ">
                 <img alt={data.current.condition.icon} className="w-25 h-20" src={data.current.condition.icon} />
               </div>
-              <div className="flex">
+              <div className="flex w-24">
                 <div className="text-5xl">{data.current.temp_c}</div>
                 <div className="text-xl">°C</div>
               </div>
@@ -70,7 +70,7 @@ export default function UserLocationWeatherCard({ data,searchColor,searchColorHo
               </div>
             </div>
             
-          </>
+          </div>
           
         ):(<div className="h-50">
         <div

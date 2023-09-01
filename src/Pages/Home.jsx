@@ -12,6 +12,7 @@ export default function Home() {
   const [data, setData] = useState();
   const [forecastDays, setForecastDays] = useState(3);
   const [error, setError] = useState();
+  const [coordinate, serCoordinate] = useState();
   const [cardWidth, setCardWidth] = useState({
     "card 1": "w-[253px]",
     "card 2": "w-[21rem]",
@@ -30,47 +31,73 @@ export default function Home() {
         setError(error);
       });
   };
+  navigator.geolocation.getCurrentPosition(function (position) {
+    serCoordinate(`${position.coords.latitude},${position.coords.longitude}`);
+    const location = `${position.coords.latitude},${position.coords.longitude}`;
+    console.log(location);
+  });
+
   useEffect(() => {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      serCoordinate(`${position.coords.latitude},${position.coords.longitude}`);
+    });
     fetchUserData(
-      `http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=Yangon&days=${forecastDays}`,
+      `http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=16.809984,96.1347584&days=${forecastDays}`,
       setData
     );
   }, [forecastDays]);
   const weather = data?.current.condition.text;
   let CurrentWeatherCardColor = "";
+  let backgroundImg = "";
   switch (weather) {
     case "Partly cloudy":
       CurrentWeatherCardColor = "bg-gradient-to-tr from-yellow-400 to-gray-300";
+      backgroundImg = "light rain.jpg";
       break;
 
     case "Overcast":
       CurrentWeatherCardColor = "bg-gradient-to-tr from-gray-300 to-gray-700";
-      break;
+      backgroundImg = "light rain.jpg";
 
-    case "Light rain":
-      CurrentWeatherCardColor = "bg-gradient-to-tr from-sky-500 to-gray-400";
       break;
 
     case "Light drizzle":
       CurrentWeatherCardColor = "bg-gradient-to-tr from-gray-400 to-gray-600";
+      backgroundImg = "light rain.jpg";
+
+      break;
+
+    case "Light rain":
+      CurrentWeatherCardColor = "bg-gradient-to-tr from-sky-500 to-gray-400";
+      backgroundImg = "heavy rain with thunder.jpg";
+
       break;
 
     case "Moderate rain":
       CurrentWeatherCardColor = "bg-gradient-to-tr from-gray-500 to-gray-600";
+      backgroundImg = "light rain.jpg";
+
       break;
 
     case "Heavy rain":
       CurrentWeatherCardColor = "bg-gradient-to-tr from-gray-500 to-gray-600";
+      backgroundImg = "light rain.jpg";
+
       break;
 
     case "Moderate or heavy rain with thunder":
       CurrentWeatherCardColor = "bg-gradient-to-tr from-gray-600 to-gray-700";
+      backgroundImg = "heavy rain with thunder.jpg";
+
       break;
 
     default:
       CurrentWeatherCardColor = "bg-gradient-to-tr from-sky-400 to-gray-300";
+      backgroundImg = "weather.jpg";
+
       break;
   }
+
   return data ? (
     <div className="flex flex-col">
       <div className="grid xl:grid-cols-5 lg:grid-cols-5 grid-cols-1 xl:gap-4 lg:gap-4 gap-0 text-gray-300 ">
@@ -78,6 +105,7 @@ export default function Home() {
           <BackgroundBlur
             weather={data?.current.condition.text}
             bgColor={CurrentWeatherCardColor}
+            backgroundImg={backgroundImg}
           >
             <UserLocationWeatherCard
               data={data}
@@ -186,9 +214,7 @@ export default function Home() {
                       </>
                     </div>
                   ) : (
-                    
-                      <Loader />
-                    
+                    <Loader />
                   )}
                 </div>
               </div>

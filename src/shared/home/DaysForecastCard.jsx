@@ -3,6 +3,7 @@ import React from "react";
 import DaysForecastMiniCard from "./DaysForecastMiniCard";
 
 export default function DaysForecastCard({ temperature, data }) {
+  console.log(data.day.condition.text);
     const dayData = data.day;
   const forecastDate = moment(data.date).format("ll");
   return (
@@ -30,11 +31,11 @@ export default function DaysForecastCard({ temperature, data }) {
             <div className="grid grid-cols-3 gap-2">
               <DaysForecastMiniCard heading={'Wind'} value={`${dayData.maxwind_kph} kph`}/>
               <DaysForecastMiniCard heading={'Rain'} value={`${dayData.daily_chance_of_rain} %`}/>
-              <DaysForecastMiniCard heading={'Humidity'} value={`${dayData.avghumidity} %`}/>
+              <DaysForecastMiniCard heading={'UV'} value={`${dayData.uv}`}/>
             </div>
             <div className="grid grid-cols-2 gap-2 mt-2">
               <DaysForecastMiniCard heading={'Version'} value={`${dayData.avgvis_km} km`}/>
-              <DaysForecastMiniCard heading={'UV'} value={`${dayData.uv}`}/>
+              <DaysForecastMiniCard heading={'Humidity'} value={`${dayData.avghumidity} %`}/>
             </div>
           </div>
         </div>

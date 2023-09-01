@@ -5,12 +5,12 @@ import Sidebar from "./SideBar";
 function index() {
   return (
     <div>
-      <div className=" bg-a flex flex-col ">
+      <div className=" bg-a flex flex-col">
         <div className="flex flex-row h-screen  ">
           <div className="hidden">
             <Sidebar />
           </div>
-          <div className="flex-1 w-full overflow-hidden overflow-y-auto p-5">
+          <div className="flex-1 w-full  overflow-y-auto scrollbar p-5">
             <Outlet />
           </div>
         </div>

@@ -14,11 +14,17 @@ export default function Slider({
   let slider = document.getElementById(`slider ${sliderId}`);
   let sliderContainer = document.getElementById(`sliderContainer ${sliderId}`);
   let cards = document.getElementById(`card ${sliderId}`);
-  let elementToShow = window.innerWidth > 600 ? 5 : 1;
+  let elementToShow =
+    window.innerWidth < 1000
+      ? window.innerWidth < 600
+        ? window.innerWidth < 400
+          ? 1
+          : 2
+        : 3
+      : 5;
 
   let sliderContainerWidth = sliderContainer?.clientWidth;
   let cardWidth = sliderContainerWidth / elementToShow;
-  
 
   if (slider) {
     slider.style.width = data?.length * cardWidth + "px";
@@ -49,10 +55,10 @@ export default function Slider({
       setWindowWidth(window.innerWidth);
     };
 
-    window.addEventListener('resize', handleWindowResize);
+    window.addEventListener("resize", handleWindowResize);
 
     return () => {
-      window.removeEventListener('resize', handleWindowResize);
+      window.removeEventListener("resize", handleWindowResize);
     };
   });
   useEffect(() => {
@@ -74,14 +80,15 @@ export default function Slider({
       }
     }
   }, [windowWidth]);
-  
+
   useEffect(() => {
     if (slider?.style.width.slice(0, -2) < sliderContainerWidth) {
       setSliderIncator(false);
-    }else if(slider?.style.width.slice(0, -2) > sliderContainerWidth){
+    } else if (slider?.style.width.slice(0, -2) > sliderContainerWidth) {
       setSliderIncator(true);
     }
   }, [windowWidth]);
+
   return (
     <div
       id={`sliderContainer ${sliderId}`}
