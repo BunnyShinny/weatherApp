@@ -11,6 +11,7 @@ export default function Slider({
   const [sliderIncator, setSliderIncator] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
+
   let slider = document.getElementById(`slider ${sliderId}`);
   let sliderContainer = document.getElementById(`sliderContainer ${sliderId}`);
   let cards = document.getElementById(`card ${sliderId}`);
@@ -21,7 +22,7 @@ export default function Slider({
           ? 1
           : 2
         : 3
-      : 5;
+      : 4;
 
   let sliderContainerWidth = sliderContainer?.clientWidth;
   let cardWidth = sliderContainerWidth / elementToShow;
@@ -75,7 +76,7 @@ export default function Slider({
         // cards.style.width = cardWidth + "px";
         // element.width = cardWidth + "px";
         cardWidthData[`card ${sliderId}`] = `w-[${cardWidth}px]`;
-
+        
         setCardWidth(cardWidthData);
       }
     }

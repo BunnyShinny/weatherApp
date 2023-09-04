@@ -15,8 +15,8 @@ export default function Home() {
   const [error, setError] = useState();
   const [coordinate, serCoordinate] = useState();
   const [cardWidth, setCardWidth] = useState({
-    // "card 1": "w-[253px]",
-    // "card 2": "w-[21rem]",
+    "card 1": "w-[253px]",
+    "card 2": "w-[297px]",
   });
   let latlong = Location();
 
@@ -31,7 +31,6 @@ export default function Home() {
         setError(error);
       });
   };
-
   navigator.geolocation.getCurrentPosition(function (position) {
     serCoordinate(`${position.coords.latitude},${position.coords.longitude}`);
     const location = `${position.coords.latitude},${position.coords.longitude}`;
@@ -72,7 +71,7 @@ export default function Home() {
 
     case "Light rain":
       CurrentWeatherCardColor = "bg-gradient-to-tr from-sky-500 to-gray-400";
-      backgroundImg = "heavy rain with thunder.jpg";
+      backgroundImg = "light rain.jpg";
 
       break;
 
@@ -84,13 +83,13 @@ export default function Home() {
 
     case "Heavy rain":
       CurrentWeatherCardColor = "bg-gradient-to-tr from-gray-500 to-gray-600";
-      backgroundImg = "light rain.jpg";
+      backgroundImg = "heavy rain.jpg";
 
       break;
 
     case "Moderate or heavy rain with thunder":
       CurrentWeatherCardColor = "bg-gradient-to-tr from-gray-600 to-gray-700";
-      backgroundImg = "heavy rain with thunder.jpg";
+      backgroundImg = "storm.jpg";
 
       break;
 
@@ -166,7 +165,7 @@ export default function Home() {
                 />
               </div>
               <div className=" flex-1 rounded-lg  pt-1 px-0">
-                <div className="relative flex xl:h-[14rem] lg:h-[14rem] h-[28rem] w-full ">
+                <div className="relative flex h-full w-full ">
                   {/* <div className="mb-0">Today's Weather Forecast</div> */}
                   {data ? (
                     <div className="h-auto w-full shadow-lg rounded-lg overflow-hidden grid xl:grid-cols-2 lg:grid-cols-2 grid-cols-1 gap-3">
@@ -226,9 +225,9 @@ export default function Home() {
           {/* </BackgroundBlur> */}
         </div>
       </div>
-      <div className="grid xl:grid-cols-5 lg:grid-cols-5 md:grid-cols-1 sm:grid-cols-1 grid-cols-1  gap-4 h-10 text-gray-300 mt-2 bg pt-0 h-full">
+      <div className="grid xl:grid-cols-5 lg:grid-cols-5 md:grid-cols-1 sm:grid-cols-1 grid-cols-1  xl:gap-4 gap-0 h-10 text-gray-300 mt-2 bg pt-0 h-full">
         <div className="flex justify-between">
-          <div className="rounded-xl text-gray-300 px-3 my-1 self-center">
+          <div className="rounded-xl text-gray-300 px-3 mb-1 self-center">
             {forecastDays} Days forecast
           </div>
           <select
