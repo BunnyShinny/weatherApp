@@ -3,12 +3,12 @@ import { HiSearch } from "react-icons/hi";
 import {  WiDayRain,WiCloud } from "react-icons/wi";
 import { CiLocationOn, CiCalendar } from "react-icons/ci";
 import moment from "moment/moment";
+import Location from "./Location";
 
 export default function UserLocationWeatherCard({ data,searchColor,searchColorHover,bgColor }) {
     let currentTime='';
   const wealtherIcon = () => {
     if (data) {
-      // console.log(data);
       switch (data.current.condition.text) {
         case "Moderate rain":
           return <WiDayRain />;
@@ -28,10 +28,10 @@ export default function UserLocationWeatherCard({ data,searchColor,searchColorHo
     }
   return (
     <>
-    {/* <div className={`w-full  bg-cover bg-center ${bgColor} flex flex-col justify-center items-end h-full`}> */}
       <h1 className={`mt-3 mr-3 text-end text-white font-semibold drop-shadow-lg bg-gray-400 rounded-full p-3 hover:bg-gray-500 hover:cursor-pointer`}>
         <HiSearch />
       </h1>
+      
       <div className=" w-full h-full p-3 pb-3 pt-2">
         {data ? (
           <div className="backdrop-blur-lg bg-white/10 rounded-lg p-2">

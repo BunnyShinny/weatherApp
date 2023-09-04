@@ -7,6 +7,7 @@ import DaysForecastCard from "../shared/home/DaysForecastCard";
 import Loader from "../shared/Loader";
 import AreaChart from "../shared/AreaChart";
 import axios from "axios";
+import Location from "../shared/home/Location";
 
 export default function Home() {
   const [data, setData] = useState();
@@ -14,12 +15,11 @@ export default function Home() {
   const [error, setError] = useState();
   const [coordinate, serCoordinate] = useState();
   const [cardWidth, setCardWidth] = useState({
-    "card 1": "w-[253px]",
-    "card 2": "w-[21rem]",
+    // "card 1": "w-[253px]",
+    // "card 2": "w-[21rem]",
   });
-  const forecastDateChangeHandler = (value) => {
-    setForecastDays(value);
-  };
+  let latlong = Location();
+
   const fetchUserData = async (link, setData) => {
     // const data = await (await fetch(link));
     const data = axios
@@ -31,33 +31,36 @@ export default function Home() {
         setError(error);
       });
   };
+
   navigator.geolocation.getCurrentPosition(function (position) {
     serCoordinate(`${position.coords.latitude},${position.coords.longitude}`);
     const location = `${position.coords.latitude},${position.coords.longitude}`;
-    console.log(location);
   });
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      serCoordinate(`${position.coords.latitude},${position.coords.longitude}`);
-    });
-    fetchUserData(
-      `http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=16.809984,96.1347584&days=${forecastDays}`,
-      setData
-    );
-  }, [forecastDays]);
+    if (latlong) {
+      fetchUserData(
+        `http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=${latlong}&days=${forecastDays}`,
+        setData
+      );
+    }else{
+      setError("Geolocation is not supported by your browser.");
+
+    }
+  }, [forecastDays, latlong]);
   const weather = data?.current.condition.text;
   let CurrentWeatherCardColor = "";
   let backgroundImg = "";
+
   switch (weather) {
     case "Partly cloudy":
       CurrentWeatherCardColor = "bg-gradient-to-tr from-yellow-400 to-gray-300";
-      backgroundImg = "light rain.jpg";
+      backgroundImg = "cloudy.jpg";
       break;
 
     case "Overcast":
       CurrentWeatherCardColor = "bg-gradient-to-tr from-gray-300 to-gray-700";
-      backgroundImg = "light rain.jpg";
+      backgroundImg = "cloudy.jpg";
 
       break;
 
@@ -91,11 +94,11 @@ export default function Home() {
 
       break;
 
-    default:
-      CurrentWeatherCardColor = "bg-gradient-to-tr from-sky-400 to-gray-300";
-      backgroundImg = "weather.jpg";
+    // default:
+    //   CurrentWeatherCardColor = "bg-gradient-to-tr from-sky-400 to-gray-300";
+    //   backgroundImg = "weather.jpg";
 
-      break;
+    //   break;
   }
 
   return data ? (
@@ -223,16 +226,16 @@ export default function Home() {
           {/* </BackgroundBlur> */}
         </div>
       </div>
-      <div className="grid xl:grid-cols-5 lg:grid-cols-5 md:grid-cols-1 sm:grid-cols-1 grid-cols-1  gap-4 h-10 text-gray-300 m-2 bg pt-0 h-full">
+      <div className="grid xl:grid-cols-5 lg:grid-cols-5 md:grid-cols-1 sm:grid-cols-1 grid-cols-1  gap-4 h-10 text-gray-300 mt-2 bg pt-0 h-full">
         <div className="flex justify-between">
-          <div className="rounded-xl text-gray-300 px-3 my-1 ">
+          <div className="rounded-xl text-gray-300 px-3 my-1 self-center">
             {forecastDays} Days forecast
           </div>
           <select
             id="forecast date"
             value={forecastDays}
             className="rounded-xl bg-gray-400 text-white m-1 p-1"
-            onChange={(e) => forecastDateChangeHandler(e.target.value)}
+            onChange={(e) => setForecastDays(e.target.value)}
           >
             <option value={3}>3 Days</option>
             {/* <option value={10}>10 Days</option> */}
