@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import HighlightCard from "../shared/home/HighlightCard";
 import BackgroundBlur from "../shared/BackgroundBlur";
 import UserLocationWeatherCard from "../shared/home/UserLocationWeatherCard";
@@ -13,7 +13,6 @@ export default function Home() {
   const [data, setData] = useState();
   const [forecastDays, setForecastDays] = useState(3);
   const [error, setError] = useState();
-  const [coordinate, serCoordinate] = useState();
   const [cardWidth, setCardWidth] = useState({
     "card 1": "w-[253px]",
     "card 2": "w-[297px]",
@@ -22,7 +21,7 @@ export default function Home() {
 
   const fetchUserData = async (link, setData) => {
     // const data = await (await fetch(link));
-    const data = axios
+    axios
       .get(link)
       .then((response) => {
         setData(response.data);
@@ -31,11 +30,8 @@ export default function Home() {
         setError(error);
       });
   };
-  navigator.geolocation.getCurrentPosition(function (position) {
-    serCoordinate(`${position.coords.latitude},${position.coords.longitude}`);
-    const location = `${position.coords.latitude},${position.coords.longitude}`;
-  });
-
+  
+console.log();
   useEffect(() => {
     if (latlong) {
       fetchUserData(
@@ -112,6 +108,7 @@ export default function Home() {
             <UserLocationWeatherCard
               data={data}
               bgColor={CurrentWeatherCardColor}
+              location ={latlong}
             />
           </BackgroundBlur>
         </div>

@@ -24,9 +24,9 @@ export default function DaysForecastCard({ temperature, data }) {
             <div className="flex-1 grid grid-rows-2 pl-5 text-gray-300 text-xl">
               {temperature.map((temp, index) => {
                 return (
-                  <div key={index}>
-                    {temp}
-                    <span className="text-2xl">°C</span>
+                  <div key={index} className="flex">
+                    <div className="text-xl">{temp}</div>
+                    <div className="text-sm ml-1">{`°C`}</div>
                   </div>
                 );
               })}

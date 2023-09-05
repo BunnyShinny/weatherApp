@@ -1,6 +1,6 @@
-import React, { Fragment } from "react";
+import React from 'react'
 
-export default function BackgroundBlur({
+function BackgroundBlur({
   children,
   weather,
   bgColor,
@@ -19,5 +19,7 @@ export default function BackgroundBlur({
         {children}
       </div>
     </>
-  );
+  )
 }
+
+export default BackgroundBlur
