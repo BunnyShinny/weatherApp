@@ -30,17 +30,16 @@ export default function Home() {
         setError(error);
       });
   };
-  
-console.log();
+
+  console.log();
   useEffect(() => {
     if (latlong) {
       fetchUserData(
         `http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=${latlong}&days=${forecastDays}`,
         setData
       );
-    }else{
+    } else {
       setError("Geolocation is not supported by your browser.");
-
     }
   }, [forecastDays, latlong]);
   const weather = data?.current.condition.text;
@@ -100,17 +99,18 @@ console.log();
     <div className="flex flex-col">
       <div className="grid xl:grid-cols-5 lg:grid-cols-5 grid-cols-1 xl:gap-4 lg:gap-4 gap-0 text-gray-300 ">
         <div className="relative w-full h-full colspan-2 rounded-xl col-span-1 text-white overflow-hidden xl:mb-0 lg:mb-0 mb-3">
-          <BackgroundBlur
-            weather={data?.current.condition.text}
-            bgColor={CurrentWeatherCardColor}
-            backgroundImg={backgroundImg}
+          <div
+            className={` w-full  bg-cover bg-center ${CurrentWeatherCardColor} flex flex-col justify-center items-end h-full`}
+            style={{
+              backgroundImage: `url('img/background/${backgroundImg}')`,
+            }}
           >
             <UserLocationWeatherCard
               data={data}
               bgColor={CurrentWeatherCardColor}
-              location ={latlong}
+              location={latlong}
             />
-          </BackgroundBlur>
+          </div>
         </div>
         <div className="relative w-full h-auto rounded-lg col-span-4 overflow-hidden">
           {/* <BackgroundBlur height="h-[22rem]"> */}
