@@ -11,7 +11,8 @@ import Location from "../shared/home/Location";
 export default function Home() {
   const [data, setData] = useState();
   const [forecastDays, setForecastDays] = useState(3);
-  const [error, setError] = useState();
+  const [error, setError] = useState('');
+
   const [cardWidth, setCardWidth] = useState({
     "card 1": "w-[253px]",
     "card 2": "w-[297px]",
@@ -87,12 +88,13 @@ export default function Home() {
 
       break;
 
-    // default:
-    //   CurrentWeatherCardColor = "bg-gradient-to-tr from-sky-400 to-gray-300";
-    //   backgroundImg = "weather.jpg";
+    default:
+      CurrentWeatherCardColor = "bg-gradient-to-tr from-sky-400 to-gray-300";
+      backgroundImg = "weather.jpg";
 
-    //   break;
+      break;
   }
+  console.log(error);
 
   return data ? (
     <div className="flex flex-col">
