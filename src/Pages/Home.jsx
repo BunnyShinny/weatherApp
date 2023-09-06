@@ -17,7 +17,7 @@ export default function Home() {
     "card 2": "w-[297px]",
   });
   let latlong = Location();
-
+  
   const fetchUserData = async (link, setData) => {
     // const data = await (await fetch(link));
     axios
@@ -29,6 +29,7 @@ export default function Home() {
         console.log(error);
       });
   };
+  // console.log(latlong);
   useEffect(() => {
     if (latlong) {
       fetchUserData(
@@ -111,7 +112,7 @@ export default function Home() {
         </div>
         <div className="relative w-full h-auto rounded-lg col-span-4 overflow-hidden">
           {/* <BackgroundBlur height="h-[22rem]"> */}
-          <div className="flex flex-col  h-full overflow-auto">
+          <div className="flex flex-col  h-full">
             <div className="xl:mt:0 lg:mt-0 mt-3">Today's Highlight</div>
             <div className="flex flex-col h-full">
               <div className="flex-none grid xl:grid-cols-6 lg:grid-cols-6 grid-cols-2  gap-3 mt-2">

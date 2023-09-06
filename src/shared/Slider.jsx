@@ -24,7 +24,7 @@ export default function Slider({
   let elementToShow =
     window.innerWidth < 1000
       ? window.innerWidth < 600
-        ? window.innerWidth < 400
+        ? window.innerWidth < 500
           ? 1
           : 2
         : 3
@@ -77,13 +77,13 @@ export default function Slider({
     for (let index = 0; index < data?.length; index++) {
       if (cards) {
         cardWidth[`card ${sliderId}`] = `w-[${cardWidthData}px]`;
-
         setCardWidth(cardWidth);
       }
     }
-    // eslint-disable-next-line
-  }, [windowWidth, data]);
 
+    // eslint-disable-next-line
+  }, [windowWidth, data,elementToShow,sliderContainerWidth,cardWidthData,cardWidth]);
+  // console.log({sliderContainerWidth},{cardWidthData});
   useEffect(() => {
     if (slider) {
       if (slider.style.width.slice(0, -2) < sliderContainerWidth) {
