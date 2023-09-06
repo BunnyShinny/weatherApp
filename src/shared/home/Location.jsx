@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 function Location() {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
-  const [error, setError] = useState(null);
 
   const getLocation = () => {
     if (navigator.geolocation) {
@@ -13,19 +12,17 @@ function Location() {
           setLongitude(position.coords.longitude);
         },
         (error) => {
-          setError(error.message);
+          console.log(error.message);
         }
       );
     } else {
-      setError("Geolocation is not supported by your browser.");
+      console.log("Geolocation is not supported by your browser.");
     }
   };
 
   useEffect(() => {
     getLocation();
-  }, [navigator.geolocation]);
-
-//   console.log(`${latitude},${longitude}`);
+  }, []);
 
   return  latitude && longitude && (`${latitude},${longitude}`) ;
 }

@@ -28,7 +28,6 @@ export default function UserLocationWeatherCard({ data, location }) {
       .format("MMMM Do YYYY, h:mm:ss a")
       .split(",");
   }
-  console.log(location);
   return (
     <>
       <h1

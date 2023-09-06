@@ -11,7 +11,6 @@ import Location from "../shared/home/Location";
 export default function Home() {
   const [data, setData] = useState();
   const [forecastDays, setForecastDays] = useState(3);
-  const [error, setError] = useState('');
 
   const [cardWidth, setCardWidth] = useState({
     "card 1": "w-[253px]",
@@ -27,19 +26,17 @@ export default function Home() {
         setData(response.data);
       })
       .catch((error) => {
-        setError(error);
+        console.log(error);
       });
   };
-
-  console.log();
   useEffect(() => {
     if (latlong) {
       fetchUserData(
         `http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=${latlong}&days=${forecastDays}`,
         setData
       );
-    } else {
-      setError("Geolocation is not supported by your browser.");
+    // } else {
+    //   console.log("Geolocation is not supported by your browser.");
     }
   }, [forecastDays, latlong]);
   const weather = data?.current.condition.text;
@@ -94,7 +91,6 @@ export default function Home() {
 
       break;
   }
-  console.log(error);
 
   return data ? (
     <div className="flex flex-col">
@@ -246,7 +242,7 @@ export default function Home() {
             <Slider
               sliderId={2}
               data={data?.forecast.forecastday}
-              cardWidthData={cardWidth}
+              cardWidth={cardWidth}
               setCardWidth={setCardWidth}
             >
               <>

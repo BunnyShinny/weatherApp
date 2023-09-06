@@ -4,17 +4,23 @@ import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 export default function Slider({
   data,
   sliderId,
-  cardWidthData,
+  cardWidth,
   setCardWidth,
   children,
 }) {
   const [sliderIncator, setSliderIncator] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-
-  let slider = document.getElementById(`slider ${sliderId}`);
-  let sliderContainer = document.getElementById(`sliderContainer ${sliderId}`);
-  let cards = document.getElementById(`card ${sliderId}`);
+  const [slider, setSlider] = useState(
+    document.getElementById(`slider ${sliderId}`)
+  );
+  const [sliderContainer, setSliderContainer] = useState(
+    document.getElementById(`sliderContainer ${sliderId}`)
+  );
+  const [cards, setCards] = useState(
+    document.getElementById(`card ${sliderId}`)
+  );
+  const [sliderContainerWidth, setSliderContainerWidth] = useState();
+  const [cardWidthData, setCardWidthData] = useState();
   let elementToShow =
     window.innerWidth < 1000
       ? window.innerWidth < 600
@@ -24,21 +30,18 @@ export default function Slider({
         : 3
       : 4;
 
-  let sliderContainerWidth = sliderContainer?.clientWidth;
-  let cardWidth = sliderContainerWidth / elementToShow;
-
   if (slider) {
-    slider.style.width = data?.length * cardWidth + "px";
+    slider.style.width = data?.length * cardWidthData + "px";
   }
 
   const nextSlide = () => {
     if (slider) {
       if (
         +slider.style.marginLeft.slice(0, -2) !==
-        -cardWidth * (data?.length - elementToShow)
+        -cardWidthData * (data?.length - elementToShow)
       ) {
         slider.style.marginLeft =
-          +slider.style.marginLeft.slice(0, -2) - cardWidth + "px";
+          +slider.style.marginLeft.slice(0, -2) - cardWidthData + "px";
       }
     }
   };
@@ -46,7 +49,7 @@ export default function Slider({
     if (slider) {
       if (+slider.style.marginLeft.slice(0, -2) !== 0) {
         slider.style.marginLeft =
-          +slider.style.marginLeft.slice(0, -2) + cardWidth + "px";
+          +slider.style.marginLeft.slice(0, -2) + cardWidthData + "px";
       }
     }
   };
@@ -63,32 +66,33 @@ export default function Slider({
     };
   });
   useEffect(() => {
-    slider = document.getElementById(`slider ${sliderId}`);
-    sliderContainer = document.getElementById(`sliderContainer ${sliderId}`);
-    cards = document.getElementById(`card ${sliderId}`);
-    cardWidth = sliderContainerWidth / elementToShow;
+    setSlider(document.getElementById(`slider ${sliderId}`));
+    setSliderContainer(document.getElementById(`sliderContainer ${sliderId}`));
+    setCards(document.getElementById(`card ${sliderId}`));
+    setSliderContainerWidth(sliderContainer?.clientWidth);
+    setCardWidthData(sliderContainerWidth / elementToShow);
     if (slider) {
-      slider.style.width = data?.length * cardWidth + "px";
+      slider.style.width = data?.length * cardWidthData + "px";
     }
     for (let index = 0; index < data?.length; index++) {
-      const element = data[index];
       if (cards) {
-        // cards.style.width = cardWidth + "px";
-        // element.width = cardWidth + "px";
-        cardWidthData[`card ${sliderId}`] = `w-[${cardWidth}px]`;
-        
-        setCardWidth(cardWidthData);
+        cardWidth[`card ${sliderId}`] = `w-[${cardWidthData}px]`;
+
+        setCardWidth(cardWidth);
       }
     }
-  }, [windowWidth]);
+    // eslint-disable-next-line
+  }, [windowWidth, data]);
 
   useEffect(() => {
-    if (slider?.style.width.slice(0, -2) < sliderContainerWidth) {
-      setSliderIncator(false);
-    } else if (slider?.style.width.slice(0, -2) > sliderContainerWidth) {
-      setSliderIncator(true);
+    if (slider) {
+      if (slider.style.width.slice(0, -2) < sliderContainerWidth) {
+        setSliderIncator(false);
+      } else if (slider.style.width.slice(0, -2) > sliderContainerWidth) {
+        setSliderIncator(true);
+      }
     }
-  }, [windowWidth]);
+  }, [windowWidth, slider, sliderContainerWidth]);
 
   return (
     <div

@@ -4,42 +4,42 @@ import moment from "moment";
 
 const AreaChart = ({ data, label, colorCode }) => {
   const chartRef = useRef(null);
-  let xLabel = "";
   const chartInstanceRef = useRef(null);
   const [value, setValue] = useState([]);
   const [hour, setHour] = useState([]);
-
+  const [xLabel,setXLabel] =useState();
   useEffect(() => {
-    if (data) {
+    // if (data) {
       const updatedHour = data.map((hourly) => {
         const hour = moment(hourly.time).format("LT");
         return hour;
       });
       const updatedValue = data.map((hourly) => {
         if (label === "Temperature") {
-          xLabel = "Temperature (°C)";
+          setXLabel("Temperature (°C)");
           return hourly.temp_c;
         }
         if (label === "Rain Chance") {
-          xLabel = "Rain Chance (%)";
+          setXLabel("Rain Chance (%)");
           return hourly.chance_of_rain;
         }
+        return null
       });
       setValue(updatedValue);
       setHour(updatedHour);
-    }
-  }, [data]);
+    // }
+  }, [data,label]);
 
   useEffect(() => {
     if (chartInstanceRef.current) {
       chartInstanceRef.current.destroy(); // Destroy previous instance if it exists
     }
-    if (label === "Temperature") {
-      xLabel = "Temperature (°C)";
-    }
-    if (label === "Rain Chance") {
-      xLabel = "Rain Chance (%)";
-    }
+    // if (label === "Temperature") {
+    //   xLabel = "Temperature (°C)";
+    // }
+    // if (label === "Rain Chance") {
+    //   xLabel = "Rain Chance (%)";
+    // }
     const ctx = chartRef.current.getContext("2d");
 
     const newChartInstance = new Chart(ctx, {
@@ -111,7 +111,7 @@ const AreaChart = ({ data, label, colorCode }) => {
       },
     });
     chartInstanceRef.current = newChartInstance; // Store the new instance
-  }, [data,value,hour,xLabel]);
+  }, [data,value,hour,xLabel,colorCode]);
 
   return (
     <div className="flex justify-center rounded-lg backdrop-blur-lg bg-white/10 h-full w-full overflow-hidden ">
