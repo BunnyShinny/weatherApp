@@ -92,7 +92,7 @@ export default function Slider({
         setSliderIncator(true);
       }
     }
-  }, [windowWidth, slider, sliderContainerWidth]);
+  }, [windowWidth, data,elementToShow,sliderContainerWidth,cardWidthData,cardWidth]);
 
   return (
     <div

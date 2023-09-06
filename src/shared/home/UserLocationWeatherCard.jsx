@@ -30,14 +30,13 @@ export default function UserLocationWeatherCard({ data, location }) {
   }
   return (
     <>
-      <h1
-        className={`flex mt-3 mr-3 text-end text-white font-semibold drop-shadow-lg bg-gray-400 rounded-full p-3 hover:bg-gray-500 hover:cursor-pointer`}
+      {/* <h1
+        className={`flex mt-3 mr-3 text-end text-white font-semibold drop-shadow-lg `}
       >
         <HiSearch />
-        {/* {location} */}
-      </h1>
+      </h1> */}
 
-      <div className=" w-full h-full p-3 pb-3 pt-2">
+      <div className=" w-full h-full p-3 pb-3 pt-2 mt-[2rem]">
         {data ? (
           <div className="backdrop-blur-lg bg-white/10 rounded-lg p-2">
             <div className="mb-1 flex flex-col">
