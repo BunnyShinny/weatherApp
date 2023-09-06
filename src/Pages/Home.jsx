@@ -32,7 +32,7 @@ export default function Home() {
   useEffect(() => {
     if (latlong) {
       fetchUserData(
-        `http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=${latlong}&days=${forecastDays}`,
+        `https://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=${latlong}&days=${forecastDays}`,
         setData
       );
     // } else {
