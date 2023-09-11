@@ -96,9 +96,9 @@ export default function Home() {
   return data ? (
     <div className="flex flex-col">
       <div className="grid xl:grid-cols-5 lg:grid-cols-5 grid-cols-1 xl:gap-4 lg:gap-4 gap-0 text-gray-300 ">
-        <div className="relative w-full h-full colspan-2 rounded-xl col-span-1 text-white overflow-hidden xl:mb-0 lg:mb-0 mb-3">
+        <div className="relative w-full h-auto colspan-2 rounded-xl col-span-1 text-white  xl:mb-0 lg:mb-0 mb-3">
           <div
-            className={` w-full  bg-cover bg-center ${CurrentWeatherCardColor} flex flex-col justify-center items-end h-full`}
+            className={` w-full  bg-cover bg-center ${CurrentWeatherCardColor} flex flex-col justify-center items-end h-auto`}
             style={{
               backgroundImage: `url('img/background/${backgroundImg}')`,
             }}
@@ -110,7 +110,7 @@ export default function Home() {
             />
           </div>
         </div>
-        <div className="relative w-full h-auto rounded-lg col-span-4 overflow-hidden">
+        <div className="relative w-full h-auto rounded-lg col-span-4 ">
           {/* <BackgroundBlur height="h-[22rem]"> */}
           <div className="flex flex-col  h-full">
             <div className="xl:mt:0 lg:mt-0 mt-3">Today's Highlight</div>

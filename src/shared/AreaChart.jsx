@@ -109,8 +109,8 @@ const AreaChart = ({ data, label, colorCode }) => {
   }, [data,value,hour,xLabel,colorCode]);
 
   return (
-    <div className="flex justify-center rounded-lg backdrop-blur-lg bg-white/10 h-full w-full overflow-hidden ">
-      <div className="flex-1 h-full w-full">
+    <div className="flex justify-center rounded-lg backdrop-blur-lg bg-white/10 h-auto w-full">
+      <div className="flex-1 h-auto w-full">
         <canvas className="p-3 " ref={chartRef}></canvas>
       </div>
     </div>
