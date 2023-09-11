@@ -234,7 +234,7 @@ export default function Home() {
               
             </Carousal>
           ) : (
-            <div className={"h-[20rem]"}>
+            <div className={"h-auto"}>
               <Loader />
             </div>
           )}
