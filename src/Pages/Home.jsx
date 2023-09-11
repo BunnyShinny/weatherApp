@@ -163,40 +163,7 @@ export default function Home() {
                 <div className="relative flex h-full w-full ">
                   {/* <div className="mb-0">Today's Weather Forecast</div> */}
                   {data ? (
-                    <div className="h-auto w-full shadow-lg rounded-lg overflow-hidden grid xl:grid-cols-2 lg:grid-cols-2 grid-cols-1 gap-3">
-                      {/* {data ? (
-                      <Slider
-                        sliderId={1}
-                        data={data?.forecast.forecastday[0].hour}
-                        cardWidthData={cardWidth}
-                        setCardWidth={setCardWidth}
-                      >
-                        <>
-                          {data?.forecast.forecastday[0].hour?.map(
-                            (hourly, index) => {
-                              return (
-                                <div
-                                  key={index}
-                                  id={"card 1"}
-                                  className={cardWidth["card 1"]}
-                                >
-                                  <ForecastCard
-                                    data={hourly}
-                                    time={hourly.time}
-                                    icon={hourly.condition.icon}
-                                    temp={hourly.temp_c}
-                                    rain_chance={hourly.chance_of_rain}
-                                  />
-                                </div>
-                              );
-                            }
-                          )}
-                        </>
-                      </Slider>
-                    ) : (
-                      <Loader />
-                    )} */}
-
+                    <div className="h-auto w-full shadow-lg rounded-lg grid xl:grid-cols-2 lg:grid-cols-2 grid-cols-1 gap-3">
                       <>
                         <AreaChart
                           data={data?.forecast.forecastday[0].hour}
@@ -235,7 +202,6 @@ export default function Home() {
             {/* <option value={10}>10 Days</option> */}
           </select>
         </div>
-        <div className="relative w-full h-full col-span-4 overflow-hidden "></div>
       </div>
       <div className="relative h-auto rounded-lg col-span-4 overflow-hidden">
         <div className="h-auto">
