@@ -6,7 +6,7 @@ Install this library with peer dependencies:
 npm install
 ```
 ## Example
-
+[Example](https://main--dynamic-biscochitos-1d60b2.netlify.app/)
 ## About API
 
 The api I use is from  [weatherapi](https://www.weatherapi.com/), you will need to register and use api key from there into env file.
