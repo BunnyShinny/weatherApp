@@ -187,7 +187,7 @@ export default function Home() {
           {/* </BackgroundBlur> */}
         </div>
       </div>
-      <div className="grid xl:grid-cols-5 lg:grid-cols-5 md:grid-cols-1 sm:grid-cols-1 grid-cols-1  xl:gap-4 gap-0 h-10 text-gray-300 mt-2 bg pt-0 h-full">
+      <div className="grid xl:grid-cols-5 lg:grid-cols-5 md:grid-cols-1 sm:grid-cols-1 grid-cols-1 xl:gap-4 gap-0 h-10 text-gray-300 mt-2 bg pt-0 h-full xl:grid lg:grid md:grid sm:hidden hidden">
         <div className="flex justify-between">
           <div className="rounded-xl text-gray-300 px-3 mb-1 self-center">
             {forecastDays} Days forecast
@@ -203,7 +203,7 @@ export default function Home() {
           </select>
         </div>
       </div>
-      <div className="relative h-auto rounded-lg col-span-4 overflow-hidden">
+      <div className="relative h-auto rounded-lg col-span-4 ">
         <div className="h-auto">
           {data ? (
             <Carousal
