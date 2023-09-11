@@ -1,5 +1,4 @@
 import React from "react";
-import { HiSearch } from "react-icons/hi";
 import { WiDayRain, WiCloud } from "react-icons/wi";
 import { CiLocationOn, CiCalendar } from "react-icons/ci";
 import moment from "moment/moment";

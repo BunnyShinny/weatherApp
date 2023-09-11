@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import HighlightCard from "../shared/home/HighlightCard";
 import UserLocationWeatherCard from "../shared/home/UserLocationWeatherCard";
-import Slider from "../shared/Slider";
 import DaysForecastCard from "../shared/home/DaysForecastCard";
 import Loader from "../shared/Loader";
 import AreaChart from "../shared/AreaChart";
