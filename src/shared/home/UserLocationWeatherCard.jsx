@@ -36,7 +36,7 @@ export default function UserLocationWeatherCard({ data, location }) {
         <HiSearch />
       </h1> */}
 
-      <div className=" w-full h-full p-3 pb-3 pt-2 mt-[2rem]">
+      <div className=" w-full h-full p-3 pb-3 pt-2 mt-10">
         {data ? (
           <div className="backdrop-blur-lg bg-white/10 rounded-lg p-2">
             <div className="mb-1 flex flex-col">

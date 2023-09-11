@@ -7,6 +7,7 @@ import Loader from "../shared/Loader";
 import AreaChart from "../shared/AreaChart";
 import axios from "axios";
 import Location from "../shared/home/Location";
+import Carousal from "../shared/Carousal";
 
 export default function Home() {
   const [data, setData] = useState();
@@ -92,7 +93,7 @@ export default function Home() {
 
       break;
   }
-
+  
   return data ? (
     <div className="flex flex-col">
       <div className="grid xl:grid-cols-5 lg:grid-cols-5 grid-cols-1 xl:gap-4 lg:gap-4 gap-0 text-gray-300 ">
@@ -240,19 +241,19 @@ export default function Home() {
       <div className="relative h-auto rounded-lg col-span-4 overflow-hidden">
         <div className="h-auto">
           {data ? (
-            <Slider
+            <Carousal
               sliderId={2}
               data={data?.forecast.forecastday}
               cardWidth={cardWidth}
               setCardWidth={setCardWidth}
             >
-              <>
+              
                 {data?.forecast.forecastday?.map((hourly, index) => {
                   return (
                     <div
                       key={index}
                       id={"card 2"}
-                      className={cardWidth["card 2"]}
+                      className={"w-auto"}
                     >
                       <DaysForecastCard
                         data={hourly}
@@ -264,8 +265,9 @@ export default function Home() {
                     </div>
                   );
                 })}
-              </>
-            </Slider>
+                
+              
+            </Carousal>
           ) : (
             <div className={"h-[20rem]"}>
               <Loader />

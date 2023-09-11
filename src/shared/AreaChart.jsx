@@ -17,13 +17,13 @@ const AreaChart = ({ data, label, colorCode }) => {
       const updatedValue = data.map((hourly) => {
         if (label === "Temperature") {
           setXLabel("Temperature (°C)");
-          return hourly.temp_c;
+          return Math.floor(hourly.temp_c);
         }
         if (label === "Rain Chance") {
           setXLabel("Rain Chance (%)");
           return hourly.chance_of_rain;
         }
-        return null
+        return null;
       });
       setValue(updatedValue);
       setHour(updatedHour);
@@ -34,12 +34,7 @@ const AreaChart = ({ data, label, colorCode }) => {
     if (chartInstanceRef.current) {
       chartInstanceRef.current.destroy(); // Destroy previous instance if it exists
     }
-    // if (label === "Temperature") {
-    //   xLabel = "Temperature (°C)";
-    // }
-    // if (label === "Rain Chance") {
-    //   xLabel = "Rain Chance (%)";
-    // }
+    
     const ctx = chartRef.current.getContext("2d");
 
     const newChartInstance = new Chart(ctx, {
@@ -105,7 +100,7 @@ const AreaChart = ({ data, label, colorCode }) => {
               display: false,
             },
             // suggestedMin: 0,
-            // suggestedMax: 0
+            suggestedMax: 10
           },
         },
       },
