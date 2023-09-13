@@ -7,7 +7,7 @@ export default function DaysForecastCard({ temperature, data }) {
   const forecastDate = moment(data.date).format("ll");
   return (
     <div className="p-2 h-auto w-auto overflow-hidden">
-      <div className="flex flex-col h-full backdrop-blur-lg bg-white/10 hover:bg-white/30 hover:bg-white/30 rounded-lg p-3 ">
+      <div className="flex flex-col h-full backdrop-blur-lg bg-white/10  hover:bg-white/30 rounded-lg p-3 ">
         <div className="text-xl text-gray-300 font-semibold">
           {forecastDate}
         </div>
